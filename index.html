@@ -544,11 +544,12 @@
 
         function normalizeClanName(name) {
             // Normalize clan names to handle character encoding differences
+            // BUT preserve important distinctions like dots in names
             return name.toUpperCase()
                       .replace(/[ˢᵗʳᵃʸ]/g, 'STRAY')
                       .replace(/[⚚]/g, '')
-                      .replace(/[\.]/g, '')
                       .replace(/[\s\-]/g, '')
+                      // DON'T remove dots - they're significant (ChaoticAF vs ChaoticAF.)
                       .trim();
         }
 
