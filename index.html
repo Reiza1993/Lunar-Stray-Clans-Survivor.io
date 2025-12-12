@@ -334,6 +334,7 @@
                         <button class="sort-btn" onclick="sortClans('attack')">Total ATK</button>
                         <button class="sort-btn" onclick="sortClans('lme')">LME</button>
                         <button class="sort-btn" onclick="sortClans('relics')">Relics</button>
+                        <button class="sort-btn" onclick="sortClans('grade')">Grade Points</button>
                         <button class="sort-btn" onclick="sortClans('phase')">Phase 1</button>
                         <button class="sort-btn" onclick="sortClans('rank')">Rank</button>
                     </div>
@@ -349,12 +350,13 @@
                                 <th class="numeric">Total ATK</th>
                                 <th>LME</th>
                                 <th class="numeric">Total Relics</th>
+                                <th class="numeric">Grade Points</th>
                                 <th class="numeric">Phase 1 Score</th>
                                 <th class="numeric">Global Rank</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><td colspan="8" class="loading">Loading clan data...</td></tr>
+                            <tr><td colspan="9" class="loading">Loading clan data...</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -468,7 +470,7 @@
             const tbody = document.querySelector('#clansTable tbody');
             
             if (allClans.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="8" class="loading">No clan data available</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="9" class="loading">No clan data available</td></tr>';
                 return;
             }
 
@@ -485,6 +487,7 @@
                         <td class="numeric">${clan.Total_Attack}</td>
                         <td><span class="lme-badge">D${clan.LME_Level || 'N/A'}</span></td>
                         <td class="numeric">${clan.Total_Relic_Cores}</td>
+                        <td class="numeric">${clan.Grade_Score || 'N/A'}</td>
                         <td class="numeric">${clan.Phase_Score ? clan.Phase_Score.toLocaleString() : 'N/A'}</td>
                         <td class="numeric">
                             ${clan.Global_Rank}
@@ -604,11 +607,17 @@
             document.querySelectorAll('.clans-overview .sort-btn').forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
             
-            // Toggle direction if same field
+            // Toggle direction if same field, but set default direction based on field
             if (currentSort.type === 'clans' && currentSort.field === field) {
                 currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
             } else {
-                currentSort = { type: 'clans', field: field, direction: 'desc' };
+                // For rank, default to ascending (lower numbers first)
+                // For others, default to descending (higher numbers first)
+                currentSort = { 
+                    type: 'clans', 
+                    field: field, 
+                    direction: field === 'rank' ? 'asc' : 'desc' 
+                };
             }
 
             allClans.sort((a, b) => {
@@ -631,6 +640,11 @@
                         valueA = parseInt(a.Total_Relic_Cores?.replace(/\+/g, '')) || 0;
                         valueB = parseInt(b.Total_Relic_Cores?.replace(/\+/g, '')) || 0;
                         break;
+                    case 'grade':
+                        // Extract numeric value from Grade_Score (e.g., "1180 +30" -> 1180)
+                        valueA = parseInt((a.Grade_Score || '0').split(' ')[0]) || 0;
+                        valueB = parseInt((b.Grade_Score || '0').split(' ')[0]) || 0;
+                        break;
                     case 'phase':
                         valueA = a.Phase_Score || 0;
                         valueB = b.Phase_Score || 0;
@@ -638,8 +652,7 @@
                     case 'rank':
                         valueA = parseInt(a.Global_Rank) || 999999;
                         valueB = parseInt(b.Global_Rank) || 999999;
-                        // For rank, lower is better, so flip the logic
-                        return currentSort.direction === 'asc' ? valueA - valueB : valueB - valueA;
+                        break;
                     default:
                         return 0;
                 }
