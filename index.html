@@ -294,12 +294,27 @@
         }
         
         .lme-badge {
-            background: var(--secondary-color);
             color: white;
             padding: 2px 8px;
             border-radius: 4px;
             font-size: 0.8rem;
             font-weight: 500;
+        }
+        
+        .lme-d12 {
+            background: #9333ea; /* Purple for D12 */
+        }
+        
+        .lme-d11 {
+            background: var(--secondary-color); /* Blue for D11 */
+        }
+        
+        .lme-d10 {
+            background: #06b6d4; /* Turquoise for D10 */
+        }
+        
+        .lme-default {
+            background: var(--text-muted); /* Default gray for other levels */
         }
     </style>
 </head>
@@ -490,7 +505,7 @@
                         <td>${clan.Guild_ID}</td>
                         <td class="numeric">${clan.Member_Count || 'N/A'}</td>
                         <td class="numeric">${clan.Total_Attack}</td>
-                        <td><span class="lme-badge">D${clan.LME_Level || 'N/A'}</span></td>
+                        <td><span class="lme-badge ${getLMEClass(clan.LME_Level)}">D${clan.LME_Level || 'N/A'}</span></td>
                         <td class="numeric">${clan.Total_Relic_Cores}</td>
                         <td class="numeric">${lunarPoints}</td>
                         <td class="numeric">${clan.Phase_Score ? clan.Phase_Score.toLocaleString() : 'N/A'}</td>
@@ -542,6 +557,19 @@
             renderMembersTable();
         }
 
+        function getLMEClass(lmeLevel) {
+            switch(lmeLevel) {
+                case 12:
+                    return 'lme-d12'; // Purple
+                case 11:
+                    return 'lme-d11'; // Blue  
+                case 10:
+                    return 'lme-d10'; // Turquoise
+                default:
+                    return 'lme-default'; // Gray
+            }
+        }
+
         function normalizeClanName(name) {
             // Normalize clan names to handle character encoding differences
             // BUT preserve important distinctions like dots in names
@@ -577,7 +605,14 @@
 
             // Find the correct clan name in members data
             const matchingClanName = findMatchingClanName(currentClan, allMembers);
-            const clanMembers = allMembers.filter(member => member.Clan_Name === matchingClanName);
+            let clanMembers = allMembers.filter(member => member.Clan_Name === matchingClanName);
+            
+            // Sort members by position (rank) - lowest position number first
+            clanMembers.sort((a, b) => {
+                const posA = parseInt(a.Attack_Position) || 999;
+                const posB = parseInt(b.Attack_Position) || 999;
+                return posA - posB;
+            });
             
             console.log('Looking for clan:', currentClan);
             console.log('Found matching name:', matchingClanName);
