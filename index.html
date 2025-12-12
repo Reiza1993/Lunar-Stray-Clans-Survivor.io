@@ -334,7 +334,7 @@
                         <button class="sort-btn" onclick="sortClans('attack')">Total ATK</button>
                         <button class="sort-btn" onclick="sortClans('lme')">LME</button>
                         <button class="sort-btn" onclick="sortClans('relics')">Relics</button>
-                        <button class="sort-btn" onclick="sortClans('grade')">Grade Points</button>
+                        <button class="sort-btn" onclick="sortClans('grade')">Lunar Points</button>
                         <button class="sort-btn" onclick="sortClans('phase')">Phase 1</button>
                         <button class="sort-btn" onclick="sortClans('rank')">Rank</button>
                     </div>
@@ -350,7 +350,7 @@
                                 <th class="numeric">Total ATK</th>
                                 <th>LME</th>
                                 <th class="numeric">Total Relics</th>
-                                <th class="numeric">Grade Points</th>
+                                <th class="numeric">Lunar Points</th>
                                 <th class="numeric">Phase 1 Score</th>
                                 <th class="numeric">Global Rank</th>
                             </tr>
@@ -476,8 +476,17 @@
 
             const html = allClans.map(clan => {
                 const rankChange = Math.floor(Math.random() * 21) - 10; // Random for demo
-                const changeClass = rankChange > 0 ? 'rank-up' : rankChange < 0 ? 'rank-down' : '';
-                const changeSymbol = rankChange > 0 ? '+' : '';
+                const rankChangeClass = rankChange > 0 ? 'rank-up' : rankChange < 0 ? 'rank-down' : '';
+                const rankChangeSymbol = rankChange > 0 ? '+' : '';
+                
+                // Parse Lunar Points (Grade_Score) to extract base points and change
+                let lunarPoints = 'N/A';
+                if (clan.Grade_Score) {
+                    const parts = clan.Grade_Score.split(' ');
+                    const basePoints = parts[0];
+                    const change = parts[1] || '';
+                    lunarPoints = `${basePoints}${change ? ` <span class="rank-change ${change.startsWith('+') ? 'rank-up' : change.startsWith('-') ? 'rank-down' : ''}">(${change})</span>` : ''}`;
+                }
                 
                 return `
                     <tr>
@@ -487,11 +496,11 @@
                         <td class="numeric">${clan.Total_Attack}</td>
                         <td><span class="lme-badge">D${clan.LME_Level || 'N/A'}</span></td>
                         <td class="numeric">${clan.Total_Relic_Cores}</td>
-                        <td class="numeric">${clan.Grade_Score || 'N/A'}</td>
+                        <td class="numeric">${lunarPoints}</td>
                         <td class="numeric">${clan.Phase_Score ? clan.Phase_Score.toLocaleString() : 'N/A'}</td>
                         <td class="numeric">
                             ${clan.Global_Rank}
-                            ${rankChange !== 0 ? `<span class="rank-change ${changeClass}">(${changeSymbol}${rankChange})</span>` : ''}
+                            ${rankChange !== 0 ? `<span class="rank-change ${rankChangeClass}">(${rankChangeSymbol}${rankChange})</span>` : ''}
                         </td>
                     </tr>
                 `;
