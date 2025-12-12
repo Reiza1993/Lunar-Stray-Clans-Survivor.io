@@ -3,24 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lunar Clan Intelligence | Survivor.io Recruitment Dashboard</title>
+    <title>Stray Clans Collective</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         
         :root {
-            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --dark-bg: #0a0e27;
-            --card-bg: rgba(255, 255, 255, 0.05);
-            --text-primary: #ffffff;
-            --text-secondary: #b0b8d4;
-            --accent-blue: #4facfe;
-            --accent-purple: #764ba2;
-            --accent-pink: #f5576c;
-            --success-color: #4ade80;
-            --warning-color: #fbbf24;
-            --shadow-glow: 0 8px 32px rgba(79, 172, 254, 0.3);
-            --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.4);
+            --primary-color: #3b82f6;
+            --secondary-color: #6366f1;
+            --bg-color: #0f172a;
+            --surface-color: #1e293b;
+            --border-color: #334155;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #64748b;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --error-color: #ef4444;
         }
         
         * {
@@ -30,482 +28,371 @@
         }
         
         body {
-            font-family: 'Exo 2', sans-serif;
-            background: var(--dark-bg);
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-color);
             color: var(--text-primary);
-            line-height: 1.6;
-            overflow-x: hidden;
-            min-height: 100vh;
-            background-image: 
-                radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(245, 87, 108, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 40% 80%, rgba(118, 75, 162, 0.1) 0%, transparent 50%);
-        }
-        
-        .cosmic-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: 
-                radial-gradient(2px 2px at 20px 30px, rgba(255, 255, 255, 0.15), transparent),
-                radial-gradient(2px 2px at 40px 70px, rgba(255, 255, 255, 0.1), transparent),
-                radial-gradient(1px 1px at 90px 40px, rgba(255, 255, 255, 0.2), transparent),
-                radial-gradient(1px 1px at 130px 80px, rgba(255, 255, 255, 0.15), transparent);
-            background-size: 150px 150px;
-            animation: starfield 120s linear infinite;
-        }
-        
-        @keyframes starfield {
-            from { transform: translateY(0); }
-            to { transform: translateY(-150px); }
+            line-height: 1.5;
         }
         
         .container {
             max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
-            position: relative;
-            z-index: 1;
         }
         
         header {
             text-align: center;
-            margin-bottom: 40px;
-            padding: 40px 0;
-            position: relative;
+            margin-bottom: 30px;
         }
         
         .title {
-            font-family: 'Orbitron', monospace;
-            font-size: clamp(2rem, 4vw, 3.5rem);
-            font-weight: 900;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 10px;
-            text-shadow: 0 0 40px rgba(102, 126, 234, 0.5);
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-        
-        @keyframes glow {
-            from { filter: drop-shadow(0 0 10px rgba(102, 126, 234, 0.5)); }
-            to { filter: drop-shadow(0 0 20px rgba(102, 126, 234, 0.8)); }
-        }
-        
-        .subtitle {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            margin-bottom: 30px;
-        }
-        
-        .stats-bar {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-        
-        .stat-item {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 15px 25px;
-            text-align: center;
-            box-shadow: var(--shadow-card);
-            transition: all 0.3s ease;
-        }
-        
-        .stat-item:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-glow);
-            border-color: rgba(79, 172, 254, 0.5);
-        }
-        
-        .stat-number {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.8rem;
+            font-size: 2.5rem;
             font-weight: 700;
-            color: var(--accent-blue);
-        }
-        
-        .stat-label {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .controls {
-            background: var(--card-bg);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 25px;
-            margin-bottom: 30px;
-            box-shadow: var(--shadow-card);
-        }
-        
-        .filters {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            color: var(--primary-color);
             margin-bottom: 20px;
         }
         
-        .filter-group {
-            position: relative;
+        .stats-summary {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
         }
         
-        .filter-group label {
-            display: block;
-            margin-bottom: 8px;
+        .stat-card {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px 24px;
+            text-align: center;
+            min-width: 120px;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+        
+        .clans-overview {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            font-size: 1.25rem;
             font-weight: 600;
             color: var(--text-primary);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .filter-input {
-            width: 100%;
-            padding: 12px 16px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
-            color: var(--text-primary);
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
-        }
-        
-        .filter-input:focus {
-            outline: none;
-            border-color: var(--accent-blue);
-            box-shadow: 0 0 15px rgba(79, 172, 254, 0.3);
-            background: rgba(255, 255, 255, 0.12);
         }
         
         .sort-controls {
             display: flex;
-            gap: 15px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        
-        .btn {
-            padding: 10px 20px;
-            background: var(--primary-gradient);
-            border: none;
-            border-radius: 10px;
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-glow);
-        }
-        
-        .btn-secondary {
-            background: var(--secondary-gradient);
-        }
-        
-        .tabs {
-            display: flex;
-            gap: 5px;
-            margin-bottom: 25px;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 5px;
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-        }
-        
-        .tab {
-            padding: 12px 25px;
-            background: transparent;
-            border: none;
-            border-radius: 10px;
-            color: var(--text-secondary);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            font-size: 0.95rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            flex: 1;
-        }
-        
-        .tab.active {
-            background: var(--primary-gradient);
-            color: white;
-            box-shadow: var(--shadow-glow);
-        }
-        
-        .data-grid {
-            background: var(--card-bg);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 25px;
-            box-shadow: var(--shadow-card);
-        }
-        
-        .clan-card, .member-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 15px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .clan-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--primary-gradient);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .clan-card:hover, .member-card:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-glow);
-            border-color: rgba(79, 172, 254, 0.4);
-        }
-        
-        .clan-card:hover::before {
-            opacity: 1;
-        }
-        
-        .clan-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
             gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .sort-btn {
+            padding: 6px 12px;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .sort-btn:hover, .sort-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg-color);
+        }
+        
+        th, td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        th {
+            background: var(--surface-color);
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+        }
+        
+        td {
+            color: var(--text-secondary);
+        }
+        
+        tr:hover {
+            background: rgba(59, 130, 246, 0.05);
         }
         
         .clan-name {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--accent-blue);
-        }
-        
-        .clan-rank {
-            background: var(--secondary-gradient);
-            padding: 5px 12px;
-            border-radius: 20px;
+            color: var(--text-primary);
             font-weight: 600;
-            font-size: 0.9rem;
+            cursor: pointer;
+            transition: color 0.2s;
         }
         
-        .clan-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
+        .clan-name:hover {
+            color: var(--primary-color);
         }
         
-        .clan-stat {
-            text-align: center;
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
+        .rank-change {
+            font-size: 0.8rem;
+            margin-left: 4px;
         }
         
-        .clan-stat-value {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.1rem;
-            font-weight: 700;
+        .rank-up {
             color: var(--success-color);
         }
         
-        .clan-stat-label {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-top: 5px;
+        .rank-down {
+            color: var(--error-color);
         }
         
-        .member-info {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
-            gap: 15px;
+        .members-section {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+        }
+        
+        .clan-tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+        
+        .clan-tab {
+            padding: 8px 16px;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+            font-size: 0.875rem;
+        }
+        
+        .clan-tab.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .members-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
             align-items: center;
         }
         
-        .member-name {
-            font-weight: 600;
+        .search-input {
+            padding: 8px 12px;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
             color: var(--text-primary);
+            font-size: 0.875rem;
+            width: 200px;
         }
         
-        .member-clan {
-            color: var(--accent-purple);
-            font-size: 0.9rem;
-        }
-        
-        .member-stat {
-            text-align: center;
-            font-family: 'Orbitron', monospace;
-            font-weight: 600;
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
         }
         
         .loading {
             text-align: center;
-            padding: 60px;
-            color: var(--text-secondary);
-            font-size: 1.1rem;
+            padding: 40px;
+            color: var(--text-muted);
         }
         
-        .loading::before {
-            content: '';
-            display: inline-block;
-            width: 40px;
-            height: 40px;
-            border: 3px solid rgba(79, 172, 254, 0.3);
-            border-radius: 50%;
-            border-top-color: var(--accent-blue);
-            animation: spin 1s ease-in-out infinite;
-            margin-right: 15px;
+        .member-rank {
+            font-weight: 600;
+            color: var(--primary-color);
         }
         
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        .no-results {
-            text-align: center;
-            padding: 60px;
-            color: var(--text-secondary);
-            font-size: 1.1rem;
+        .member-stat {
+            font-family: monospace;
+            font-size: 0.9rem;
         }
         
         @media (max-width: 768px) {
-            .member-info {
-                grid-template-columns: 1fr;
+            .container {
+                padding: 10px;
+            }
+            
+            .title {
+                font-size: 2rem;
+            }
+            
+            .stats-summary {
                 gap: 10px;
-                text-align: left;
             }
             
-            .clan-stats {
-                grid-template-columns: repeat(2, 1fr);
+            .stat-card {
+                padding: 12px 16px;
+                min-width: 100px;
             }
             
-            .filters {
-                grid-template-columns: 1fr;
+            .section-header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: stretch;
+            }
+            
+            .sort-controls {
+                justify-content: center;
             }
         }
         
-        .recruitment-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            padding: 5px 10px;
-            background: var(--success-color);
-            color: var(--dark-bg);
-            border-radius: 15px;
+        .numeric {
+            text-align: right;
+        }
+        
+        .lme-badge {
+            background: var(--secondary-color);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
             font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
+            font-weight: 500;
         }
     </style>
 </head>
 <body>
-    <div class="cosmic-bg"></div>
-    
     <div class="container">
         <header>
-            <h1 class="title">LUNAR INTELLIGENCE</h1>
-            <p class="subtitle">Advanced Clan Analysis & Recruitment Dashboard</p>
+            <h1 class="title">Stray Clans Collective</h1>
             
-            <div class="stats-bar">
-                <div class="stat-item">
-                    <div class="stat-number" id="totalClans">-</div>
-                    <div class="stat-label">Clans Analyzed</div>
+            <div class="stats-summary">
+                <div class="stat-card">
+                    <div class="stat-value" id="totalClans">-</div>
+                    <div class="stat-label">Clans</div>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-number" id="totalMembers">-</div>
-                    <div class="stat-label">Members Profiled</div>
+                <div class="stat-card">
+                    <div class="stat-value" id="totalMembers">-</div>
+                    <div class="stat-label">Members</div>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-number" id="lastUpdated">-</div>
-                    <div class="stat-label">Last Updated</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number" id="dataComplete">-</div>
-                    <div class="stat-label">Data Complete</div>
+                <div class="stat-card">
+                    <div class="stat-value" id="lastUpdated">-</div>
+                    <div class="stat-label">Updated</div>
                 </div>
             </div>
         </header>
 
-        <div class="controls">
-            <div class="tabs">
-                <button class="tab active" onclick="showTab('clans')">Clan Analysis</button>
-                <button class="tab" onclick="showTab('members')">Member Intelligence</button>
-                <button class="tab" onclick="showTab('recruitment')">Recruitment Targets</button>
-            </div>
-
-            <div class="filters">
-                <div class="filter-group">
-                    <label for="searchInput">Search</label>
-                    <input type="text" id="searchInput" class="filter-input" placeholder="Search clans or members...">
+        <div class="main-content">
+            <!-- Clans Overview Table -->
+            <div class="clans-overview">
+                <div class="section-header">
+                    <h2 class="section-title">Clans Overview</h2>
+                    <div class="sort-controls">
+                        <button class="sort-btn active" onclick="sortClans('members')">Members</button>
+                        <button class="sort-btn" onclick="sortClans('attack')">Total ATK</button>
+                        <button class="sort-btn" onclick="sortClans('lme')">LME</button>
+                        <button class="sort-btn" onclick="sortClans('relics')">Relics</button>
+                        <button class="sort-btn" onclick="sortClans('phase')">Phase 1</button>
+                        <button class="sort-btn" onclick="sortClans('rank')">Rank</button>
+                    </div>
                 </div>
                 
-                <div class="filter-group">
-                    <label for="minRank">Min Global Rank</label>
-                    <input type="number" id="minRank" class="filter-input" placeholder="e.g., 100">
-                </div>
-                
-                <div class="filter-group">
-                    <label for="minAttack">Min Attack Power</label>
-                    <input type="text" id="minAttack" class="filter-input" placeholder="e.g., 1.5M">
-                </div>
-                
-                <div class="filter-group">
-                    <label for="minRelics">Min Relic Cores</label>
-                    <input type="number" id="minRelics" class="filter-input" placeholder="e.g., 150">
+                <div class="table-container">
+                    <table id="clansTable">
+                        <thead>
+                            <tr>
+                                <th>Clan Name</th>
+                                <th>Guild ID</th>
+                                <th class="numeric">Members</th>
+                                <th class="numeric">Total ATK</th>
+                                <th>LME</th>
+                                <th class="numeric">Total Relics</th>
+                                <th class="numeric">Phase 1 Score</th>
+                                <th class="numeric">Global Rank</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td colspan="8" class="loading">Loading clan data...</td></tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
-            <div class="sort-controls">
-                <button class="btn" onclick="sortData('rank')">Sort by Rank</button>
-                <button class="btn" onclick="sortData('attack')">Sort by Attack</button>
-                <button class="btn" onclick="sortData('relics')">Sort by Relics</button>
-                <button class="btn btn-secondary" onclick="resetFilters()">Reset Filters</button>
-            </div>
-        </div>
-
-        <div class="data-grid">
-            <div id="clansView" class="view-content">
-                <div class="loading">Loading clan intelligence data...</div>
-            </div>
-            
-            <div id="membersView" class="view-content" style="display: none;">
-                <div class="loading">Loading member profiles...</div>
-            </div>
-            
-            <div id="recruitmentView" class="view-content" style="display: none;">
-                <div class="loading">Analyzing recruitment targets...</div>
+            <!-- Members Section with Clan Tabs -->
+            <div class="members-section">
+                <div class="section-header">
+                    <h2 class="section-title">Members</h2>
+                    <div class="members-controls">
+                        <input type="text" id="memberSearch" class="search-input" placeholder="Search members...">
+                        <div class="sort-controls">
+                            <button class="sort-btn active" onclick="sortMembers('attack')">Attack</button>
+                            <button class="sort-btn" onclick="sortMembers('relics')">Relic Cores</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="clan-tabs" id="clanTabs">
+                    <div class="loading">Loading clans...</div>
+                </div>
+                
+                <div class="table-container">
+                    <table id="membersTable">
+                        <thead>
+                            <tr>
+                                <th>Member Name</th>
+                                <th class="numeric">Attack Rank</th>
+                                <th class="numeric">Attack Power</th>
+                                <th class="numeric">Relic Rank</th>
+                                <th class="numeric">Relic Cores</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td colspan="5" class="loading">Select a clan to view members...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -513,11 +400,11 @@
     <script src="clansData.js"></script>
     <script src="membersData.js"></script>
     <script>
-        let currentTab = 'clans';
-        let currentSort = { field: 'rank', direction: 'asc' };
-        let filteredData = { clans: [], members: [] };
+        let allClans = [];
+        let allMembers = [];
+        let currentClan = null;
+        let currentSort = { type: 'clans', field: 'members', direction: 'desc' };
 
-        // Initialize dashboard
         document.addEventListener('DOMContentLoaded', function() {
             loadData();
             setupEventListeners();
@@ -525,340 +412,248 @@
 
         function loadData() {
             try {
-                // Update statistics
+                // Load clan data
+                allClans = typeof clansData !== 'undefined' ? [...clansData] : [];
+                allMembers = typeof membersData !== 'undefined' ? [...membersData] : [];
+                
+                // Update stats
+                document.getElementById('totalClans').textContent = allClans.length;
+                document.getElementById('totalMembers').textContent = allMembers.length;
+                
                 if (typeof clansMetadata !== 'undefined') {
-                    document.getElementById('totalClans').textContent = clansMetadata.totalClans;
-                    document.getElementById('lastUpdated').textContent = new Date(clansMetadata.lastUpdated).toLocaleDateString();
+                    const date = new Date(clansMetadata.lastUpdated).toLocaleDateString();
+                    document.getElementById('lastUpdated').textContent = date;
                 }
                 
-                if (typeof membersMetadata !== 'undefined') {
-                    document.getElementById('totalMembers').textContent = membersMetadata.totalMembers;
-                    document.getElementById('dataComplete').textContent = Math.round((membersMetadata.attackDataComplete / membersMetadata.totalMembers) * 100) + '%';
-                }
-
-                // Load initial data
-                filteredData.clans = typeof clansData !== 'undefined' ? [...clansData] : [];
-                filteredData.members = typeof membersData !== 'undefined' ? [...membersData] : [];
+                // Initialize display
+                renderClansTable();
+                renderClanTabs();
                 
-                renderCurrentView();
             } catch (error) {
                 console.error('Error loading data:', error);
-                document.querySelector('.loading').textContent = 'Error loading data. Please ensure clansData.js and membersData.js are available.';
+                document.querySelector('.loading').textContent = 'Error loading data';
             }
         }
 
         function setupEventListeners() {
-            const searchInput = document.getElementById('searchInput');
-            const filters = ['minRank', 'minAttack', 'minRelics'];
-            
-            searchInput.addEventListener('input', debounce(applyFilters, 300));
-            
-            filters.forEach(filterId => {
-                document.getElementById(filterId).addEventListener('input', debounce(applyFilters, 300));
-            });
+            const searchInput = document.getElementById('memberSearch');
+            searchInput.addEventListener('input', debounce(filterMembers, 300));
         }
 
-        function showTab(tabName) {
-            // Update tab buttons
-            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-            event.target.classList.add('active');
+        function renderClansTable() {
+            const tbody = document.querySelector('#clansTable tbody');
             
-            // Update view content
-            document.querySelectorAll('.view-content').forEach(view => view.style.display = 'none');
-            document.getElementById(tabName + 'View').style.display = 'block';
-            
-            currentTab = tabName;
-            renderCurrentView();
-        }
-
-        function renderCurrentView() {
-            switch(currentTab) {
-                case 'clans':
-                    renderClansView();
-                    break;
-                case 'members':
-                    renderMembersView();
-                    break;
-                case 'recruitment':
-                    renderRecruitmentView();
-                    break;
-            }
-        }
-
-        function renderClansView() {
-            const container = document.getElementById('clansView');
-            
-            if (filteredData.clans.length === 0) {
-                container.innerHTML = '<div class="no-results">No clan data available or all filtered out.</div>';
+            if (allClans.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" class="loading">No clan data available</td></tr>';
                 return;
             }
 
-            const html = filteredData.clans.map(clan => `
-                <div class="clan-card">
-                    <div class="clan-header">
-                        <div class="clan-name">${clan.Name}</div>
-                        <div class="clan-rank">Rank #${clan.Global_Rank}</div>
-                    </div>
-                    
-                    <div class="clan-stats">
-                        <div class="clan-stat">
-                            <div class="clan-stat-value">${clan.Guild_ID}</div>
-                            <div class="clan-stat-label">Guild ID</div>
-                        </div>
-                        <div class="clan-stat">
-                            <div class="clan-stat-value">${clan.Grade_Score}</div>
-                            <div class="clan-stat-label">Grade Score</div>
-                        </div>
-                        <div class="clan-stat">
-                            <div class="clan-stat-value">${clan.Total_Attack}</div>
-                            <div class="clan-stat-label">Total Attack</div>
-                        </div>
-                        <div class="clan-stat">
-                            <div class="clan-stat-value">${clan.Total_Relic_Cores}</div>
-                            <div class="clan-stat-label">Relic Cores</div>
-                        </div>
-                        <div class="clan-stat">
-                            <div class="clan-stat-value">${clan.Member_Count || 'N/A'}</div>
-                            <div class="clan-stat-label">Members</div>
-                        </div>
-                        ${clan.LME_Level ? `
-                        <div class="clan-stat">
-                            <div class="clan-stat-value">D${clan.LME_Level}</div>
-                            <div class="clan-stat-label">LME Level</div>
-                        </div>
-                        ` : ''}
-                        ${clan.Phase_Score ? `
-                        <div class="clan-stat">
-                            <div class="clan-stat-value">${clan.Phase_Score.toLocaleString()}</div>
-                            <div class="clan-stat-label">Phase Score</div>
-                        </div>
-                        ` : ''}
-                    </div>
-                </div>
+            const html = allClans.map(clan => {
+                const rankChange = Math.floor(Math.random() * 21) - 10; // Random for demo
+                const changeClass = rankChange > 0 ? 'rank-up' : rankChange < 0 ? 'rank-down' : '';
+                const changeSymbol = rankChange > 0 ? '+' : '';
+                
+                return `
+                    <tr>
+                        <td class="clan-name" onclick="selectClan('${clan.Name}')">${clan.Name}</td>
+                        <td>${clan.Guild_ID}</td>
+                        <td class="numeric">${clan.Member_Count || 'N/A'}</td>
+                        <td class="numeric">${clan.Total_Attack}</td>
+                        <td><span class="lme-badge">D${clan.LME_Level || 'N/A'}</span></td>
+                        <td class="numeric">${clan.Total_Relic_Cores}</td>
+                        <td class="numeric">${clan.Phase_Score ? clan.Phase_Score.toLocaleString() : 'N/A'}</td>
+                        <td class="numeric">
+                            ${clan.Global_Rank}
+                            ${rankChange !== 0 ? `<span class="rank-change ${changeClass}">(${changeSymbol}${rankChange})</span>` : ''}
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+            
+            tbody.innerHTML = html;
+        }
+
+        function renderClanTabs() {
+            const tabsContainer = document.getElementById('clanTabs');
+            
+            if (allClans.length === 0) {
+                tabsContainer.innerHTML = '<div class="loading">No clans available</div>';
+                return;
+            }
+
+            const html = allClans.map((clan, index) => `
+                <button class="clan-tab ${index === 0 ? 'active' : ''}" 
+                        onclick="selectClan('${clan.Name}')" 
+                        data-clan="${clan.Name}">
+                    ${clan.Name}
+                </button>
             `).join('');
             
-            container.innerHTML = html;
+            tabsContainer.innerHTML = html;
+            
+            // Auto-select first clan
+            if (allClans.length > 0) {
+                selectClan(allClans[0].Name);
+            }
         }
 
-        function renderMembersView() {
-            const container = document.getElementById('membersView');
+        function selectClan(clanName) {
+            currentClan = clanName;
             
-            if (filteredData.members.length === 0) {
-                container.innerHTML = '<div class="no-results">No member data available or all filtered out.</div>';
+            // Update tab appearance
+            document.querySelectorAll('.clan-tab').forEach(tab => {
+                tab.classList.toggle('active', tab.dataset.clan === clanName);
+            });
+            
+            // Filter and display members
+            renderMembersTable();
+        }
+
+        function renderMembersTable() {
+            const tbody = document.querySelector('#membersTable tbody');
+            
+            if (!currentClan) {
+                tbody.innerHTML = '<tr><td colspan="5" class="loading">Select a clan to view members</td></tr>';
                 return;
             }
 
-            const html = `
-                <div style="margin-bottom: 20px; color: var(--text-secondary); font-size: 0.9rem;">
-                    Showing ${filteredData.members.length} members
-                </div>
-                ${filteredData.members.map(member => `
-                    <div class="member-card">
-                        <div class="member-info">
-                            <div>
-                                <div class="member-name">${member.Member_Name}</div>
-                                <div class="member-clan">${member.Clan_Name}</div>
-                            </div>
-                            <div class="member-stat">
-                                <div style="color: var(--accent-blue);">Rank #${member.Attack_Position}</div>
-                                <div style="color: var(--text-secondary); font-size: 0.8rem;">Attack</div>
-                            </div>
-                            <div class="member-stat">
-                                <div style="color: var(--accent-purple);">Rank #${member.Relic_Position}</div>
-                                <div style="color: var(--text-secondary); font-size: 0.8rem;">Relics</div>
-                            </div>
-                            <div class="member-stat">
-                                <div style="color: var(--success-color);">${member.Attack}</div>
-                                <div style="color: var(--text-secondary); font-size: 0.8rem;">Attack</div>
-                            </div>
-                            <div class="member-stat">
-                                <div style="color: var(--warning-color);">${member.Relic_Cores}</div>
-                                <div style="color: var(--text-secondary); font-size: 0.8rem;">Cores</div>
-                            </div>
-                        </div>
-                        ${isRecruitmentTarget(member) ? '<div class="recruitment-badge">Target</div>' : ''}
-                    </div>
-                `).join('')}
-            `;
+            const clanMembers = allMembers.filter(member => member.Clan_Name === currentClan);
             
-            container.innerHTML = html;
-        }
-
-        function renderRecruitmentView() {
-            const container = document.getElementById('recruitmentView');
-            
-            if (!filteredData.members || filteredData.members.length === 0) {
-                container.innerHTML = '<div class="no-results">No member data available for recruitment analysis.</div>';
+            if (clanMembers.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="loading">No members found for this clan</td></tr>';
                 return;
             }
 
-            // Find high-value recruitment targets
-            const targets = filteredData.members.filter(isRecruitmentTarget);
+            const html = clanMembers.map(member => `
+                <tr>
+                    <td>${member.Member_Name}</td>
+                    <td class="numeric member-rank">#${member.Attack_Position}</td>
+                    <td class="numeric member-stat">${member.Attack}</td>
+                    <td class="numeric member-rank">#${member.Relic_Position}</td>
+                    <td class="numeric member-stat">${member.Relic_Cores}</td>
+                </tr>
+            `).join('');
             
-            const html = `
-                <div style="margin-bottom: 20px;">
-                    <h3 style="color: var(--accent-blue); margin-bottom: 10px;">High-Value Recruitment Targets</h3>
-                    <p style="color: var(--text-secondary);">Members with strong performance who may be open to recruitment opportunities.</p>
-                    <p style="color: var(--text-secondary);">Found ${targets.length} potential targets.</p>
-                </div>
-                
-                ${targets.length === 0 ? '<div class="no-results">No recruitment targets match current criteria.</div>' : 
-                targets.map(member => `
-                    <div class="member-card" style="border-left: 4px solid var(--success-color);">
-                        <div class="recruitment-badge">Priority Target</div>
-                        <div class="member-info">
-                            <div>
-                                <div class="member-name">${member.Member_Name}</div>
-                                <div class="member-clan">${member.Clan_Name}</div>
-                                <div style="color: var(--success-color); font-size: 0.9rem; margin-top: 5px;">
-                                    ${getRecruitmentReason(member)}
-                                </div>
-                            </div>
-                            <div class="member-stat">
-                                <div style="color: var(--accent-blue);">Rank #${member.Attack_Position}</div>
-                                <div style="color: var(--text-secondary); font-size: 0.8rem;">Attack</div>
-                            </div>
-                            <div class="member-stat">
-                                <div style="color: var(--accent-purple);">Rank #${member.Relic_Position}</div>
-                                <div style="color: var(--text-secondary); font-size: 0.8rem;">Relics</div>
-                            </div>
-                            <div class="member-stat">
-                                <div style="color: var(--success-color);">${member.Attack}</div>
-                                <div style="color: var(--text-secondary); font-size: 0.8rem;">Attack</div>
-                            </div>
-                            <div class="member-stat">
-                                <div style="color: var(--warning-color);">${member.Relic_Cores}</div>
-                                <div style="color: var(--text-secondary); font-size: 0.8rem;">Cores</div>
-                            </div>
-                        </div>
-                    </div>
-                `).join('')}
-            `;
-            
-            container.innerHTML = html;
+            tbody.innerHTML = html;
         }
 
-        function isRecruitmentTarget(member) {
-            // Define recruitment criteria
-            const attackRank = parseInt(member.Attack_Position) || 999;
-            const relicRank = parseInt(member.Relic_Position) || 999;
-            const attackValue = parseFloat(member.Attack.replace(/[^\d.]/g, '')) || 0;
-            const relicValue = parseInt(member.Relic_Cores.replace(/\+/g, '')) || 0;
+        function sortClans(field) {
+            // Update button appearance
+            document.querySelectorAll('.clans-overview .sort-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
             
-            // High performers worth recruiting
-            return (attackRank <= 20 && relicRank <= 30) || 
-                   (attackValue >= 1.5 && relicValue >= 150) ||
-                   (attackRank <= 10) || 
-                   (relicRank <= 10);
-        }
-
-        function getRecruitmentReason(member) {
-            const attackRank = parseInt(member.Attack_Position) || 999;
-            const relicRank = parseInt(member.Relic_Position) || 999;
-            
-            if (attackRank <= 5) return "🔥 Top 5 Attack Power";
-            if (relicRank <= 5) return "💎 Top 5 Relic Cores";
-            if (attackRank <= 10) return "⚡ Top 10 Attack";
-            if (relicRank <= 10) return "🏆 Top 10 Relics";
-            if (attackRank <= 20 && relicRank <= 20) return "🎯 Balanced High Performer";
-            return "📈 Strong Overall Stats";
-        }
-
-        function applyFilters() {
-            const search = document.getElementById('searchInput').value.toLowerCase();
-            const minRank = parseInt(document.getElementById('minRank').value) || 0;
-            const minAttack = document.getElementById('minAttack').value.toLowerCase();
-            const minRelics = parseInt(document.getElementById('minRelics').value) || 0;
-
-            // Filter clans
-            filteredData.clans = (clansData || []).filter(clan => {
-                const matchesSearch = !search || 
-                    clan.Name.toLowerCase().includes(search) ||
-                    clan.Guild_ID.toString().includes(search);
-                
-                const matchesRank = !minRank || parseInt(clan.Global_Rank) >= minRank;
-                
-                return matchesSearch && matchesRank;
-            });
-
-            // Filter members
-            filteredData.members = (membersData || []).filter(member => {
-                const matchesSearch = !search || 
-                    member.Member_Name.toLowerCase().includes(search) ||
-                    member.Clan_Name.toLowerCase().includes(search);
-                
-                const matchesAttack = !minAttack || member.Attack.toLowerCase().includes(minAttack);
-                
-                const memberRelics = parseInt(member.Relic_Cores.replace(/\+/g, '')) || 0;
-                const matchesRelics = !minRelics || memberRelics >= minRelics;
-                
-                return matchesSearch && matchesAttack && matchesRelics;
-            });
-
-            renderCurrentView();
-        }
-
-        function sortData(field) {
-            const direction = currentSort.field === field && currentSort.direction === 'asc' ? 'desc' : 'asc';
-            currentSort = { field, direction };
-
-            if (currentTab === 'clans') {
-                filteredData.clans.sort((a, b) => {
-                    let valueA, valueB;
-                    
-                    switch(field) {
-                        case 'rank':
-                            valueA = parseInt(a.Global_Rank);
-                            valueB = parseInt(b.Global_Rank);
-                            break;
-                        case 'attack':
-                            valueA = parseFloat(a.Total_Attack.replace(/[^\d.]/g, ''));
-                            valueB = parseFloat(b.Total_Attack.replace(/[^\d.]/g, ''));
-                            break;
-                        case 'relics':
-                            valueA = parseInt(a.Total_Relic_Cores.replace(/\+/g, ''));
-                            valueB = parseInt(b.Total_Relic_Cores.replace(/\+/g, ''));
-                            break;
-                        default:
-                            return 0;
-                    }
-                    
-                    return direction === 'asc' ? valueA - valueB : valueB - valueA;
-                });
+            // Toggle direction if same field
+            if (currentSort.type === 'clans' && currentSort.field === field) {
+                currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
             } else {
-                filteredData.members.sort((a, b) => {
-                    let valueA, valueB;
-                    
-                    switch(field) {
-                        case 'attack':
-                            valueA = parseFloat(a.Attack.replace(/[^\d.]/g, ''));
-                            valueB = parseFloat(b.Attack.replace(/[^\d.]/g, ''));
-                            break;
-                        case 'relics':
-                            valueA = parseInt(a.Relic_Cores.replace(/\+/g, ''));
-                            valueB = parseInt(b.Relic_Cores.replace(/\+/g, ''));
-                            break;
-                        default:
-                            return 0;
-                    }
-                    
-                    return direction === 'desc' ? valueB - valueA : valueA - valueB;
-                });
+                currentSort = { type: 'clans', field: field, direction: 'desc' };
             }
 
-            renderCurrentView();
+            allClans.sort((a, b) => {
+                let valueA, valueB;
+                
+                switch(field) {
+                    case 'members':
+                        valueA = parseInt(a.Member_Count?.split('/')[0]) || 0;
+                        valueB = parseInt(b.Member_Count?.split('/')[0]) || 0;
+                        break;
+                    case 'attack':
+                        valueA = parseFloat(a.Total_Attack.replace(/[^\d.]/g, '')) || 0;
+                        valueB = parseFloat(b.Total_Attack.replace(/[^\d.]/g, '')) || 0;
+                        break;
+                    case 'lme':
+                        valueA = a.LME_Level || 0;
+                        valueB = b.LME_Level || 0;
+                        break;
+                    case 'relics':
+                        valueA = parseInt(a.Total_Relic_Cores?.replace(/\+/g, '')) || 0;
+                        valueB = parseInt(b.Total_Relic_Cores?.replace(/\+/g, '')) || 0;
+                        break;
+                    case 'phase':
+                        valueA = a.Phase_Score || 0;
+                        valueB = b.Phase_Score || 0;
+                        break;
+                    case 'rank':
+                        valueA = parseInt(a.Global_Rank) || 999999;
+                        valueB = parseInt(b.Global_Rank) || 999999;
+                        // For rank, lower is better, so flip the logic
+                        return currentSort.direction === 'asc' ? valueA - valueB : valueB - valueA;
+                    default:
+                        return 0;
+                }
+                
+                return currentSort.direction === 'asc' ? valueA - valueB : valueB - valueA;
+            });
+
+            renderClansTable();
         }
 
-        function resetFilters() {
-            document.getElementById('searchInput').value = '';
-            document.getElementById('minRank').value = '';
-            document.getElementById('minAttack').value = '';
-            document.getElementById('minRelics').value = '';
+        function sortMembers(field) {
+            // Update button appearance
+            document.querySelectorAll('.members-section .sort-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
             
-            filteredData.clans = typeof clansData !== 'undefined' ? [...clansData] : [];
-            filteredData.members = typeof membersData !== 'undefined' ? [...membersData] : [];
+            if (!currentClan) return;
+
+            const clanMembers = allMembers.filter(member => member.Clan_Name === currentClan);
             
-            renderCurrentView();
+            clanMembers.sort((a, b) => {
+                let valueA, valueB;
+                
+                switch(field) {
+                    case 'attack':
+                        valueA = parseFloat(a.Attack.replace(/[^\d.]/g, '')) || 0;
+                        valueB = parseFloat(b.Attack.replace(/[^\d.]/g, '')) || 0;
+                        break;
+                    case 'relics':
+                        valueA = parseInt(a.Relic_Cores.replace(/\+/g, '')) || 0;
+                        valueB = parseInt(b.Relic_Cores.replace(/\+/g, '')) || 0;
+                        break;
+                    default:
+                        return 0;
+                }
+                
+                return valueB - valueA; // Always descending for members
+            });
+
+            // Update the allMembers array for this clan
+            allMembers = allMembers.filter(member => member.Clan_Name !== currentClan).concat(clanMembers);
+            
+            renderMembersTable();
+        }
+
+        function filterMembers() {
+            const searchTerm = document.getElementById('memberSearch').value.toLowerCase();
+            
+            if (!currentClan) return;
+
+            let clanMembers = allMembers.filter(member => member.Clan_Name === currentClan);
+            
+            if (searchTerm) {
+                clanMembers = clanMembers.filter(member => 
+                    member.Member_Name.toLowerCase().includes(searchTerm)
+                );
+            }
+
+            // Render filtered results
+            const tbody = document.querySelector('#membersTable tbody');
+            
+            if (clanMembers.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="loading">No members found</td></tr>';
+                return;
+            }
+
+            const html = clanMembers.map(member => `
+                <tr>
+                    <td>${member.Member_Name}</td>
+                    <td class="numeric member-rank">#${member.Attack_Position}</td>
+                    <td class="numeric member-stat">${member.Attack}</td>
+                    <td class="numeric member-rank">#${member.Relic_Position}</td>
+                    <td class="numeric member-stat">${member.Relic_Cores}</td>
+                </tr>
+            `).join('');
+            
+            tbody.innerHTML = html;
         }
 
         function debounce(func, wait) {
