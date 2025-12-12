@@ -433,9 +433,13 @@
                     }));
                 }
                 
+                // Calculate dynamic player counts
+                const currentPlayers = allMembers.length;
+                const maxPlayers = allClans.length * 40; // 40 members per clan max
+                
                 // Update stats
                 document.getElementById('totalClans').textContent = allClans.length;
-                document.getElementById('totalMembers').textContent = allMembers.length;
+                document.getElementById('totalMembers').textContent = `${currentPlayers}/${maxPlayers}`;
                 
                 if (typeof clansMetadata !== 'undefined') {
                     const date = new Date(clansMetadata.lastUpdated).toLocaleDateString();
