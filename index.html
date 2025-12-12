@@ -412,9 +412,26 @@
 
         function loadData() {
             try {
-                // Load clan data
-                allClans = typeof clansData !== 'undefined' ? [...clansData] : [];
+                // Load member data
                 allMembers = typeof membersData !== 'undefined' ? [...membersData] : [];
+                
+                // Load clan data, or extract from members if not available
+                if (typeof clansData !== 'undefined') {
+                    allClans = [...clansData];
+                } else {
+                    // Extract unique clans from members data
+                    const uniqueClans = [...new Set(allMembers.map(m => m.Clan_Name))];
+                    allClans = uniqueClans.map(clanName => ({
+                        Name: clanName,
+                        Guild_ID: 'N/A',
+                        Member_Count: 'N/A',
+                        Total_Attack: 'N/A',
+                        LME_Level: null,
+                        Total_Relic_Cores: 'N/A',
+                        Phase_Score: null,
+                        Global_Rank: 'N/A'
+                    }));
+                }
                 
                 // Update stats
                 document.getElementById('totalClans').textContent = allClans.length;
@@ -422,6 +439,9 @@
                 
                 if (typeof clansMetadata !== 'undefined') {
                     const date = new Date(clansMetadata.lastUpdated).toLocaleDateString();
+                    document.getElementById('lastUpdated').textContent = date;
+                } else if (typeof membersMetadata !== 'undefined') {
+                    const date = new Date(membersMetadata.lastUpdated).toLocaleDateString();
                     document.getElementById('lastUpdated').textContent = date;
                 }
                 
@@ -481,9 +501,12 @@
                 return;
             }
 
-            const html = allClans.map((clan, index) => `
+            // Sort clans alphabetically for better organization
+            const sortedClans = [...allClans].sort((a, b) => a.Name.localeCompare(b.Name));
+
+            const html = sortedClans.map((clan, index) => `
                 <button class="clan-tab ${index === 0 ? 'active' : ''}" 
-                        onclick="selectClan('${clan.Name}')" 
+                        onclick="selectClan(\`${clan.Name}\`)" 
                         data-clan="${clan.Name}">
                     ${clan.Name}
                 </button>
@@ -492,13 +515,14 @@
             tabsContainer.innerHTML = html;
             
             // Auto-select first clan
-            if (allClans.length > 0) {
-                selectClan(allClans[0].Name);
+            if (sortedClans.length > 0) {
+                selectClan(sortedClans[0].Name);
             }
         }
 
         function selectClan(clanName) {
             currentClan = clanName;
+            console.log('Selected clan:', clanName); // Debug log
             
             // Update tab appearance
             document.querySelectorAll('.clan-tab').forEach(tab => {
@@ -509,6 +533,30 @@
             renderMembersTable();
         }
 
+        function normalizeClanName(name) {
+            // Normalize clan names to handle character encoding differences
+            return name.toUpperCase()
+                      .replace(/[ˢᵗʳᵃʸ]/g, 'STRAY')
+                      .replace(/[⚚]/g, '')
+                      .replace(/[\.]/g, '')
+                      .replace(/[\s\-]/g, '')
+                      .trim();
+        }
+
+        function findMatchingClanName(targetClan, membersList) {
+            // First try exact match
+            const exactMatch = membersList.find(m => m.Clan_Name === targetClan);
+            if (exactMatch) return targetClan;
+            
+            // Then try normalized matching
+            const normalizedTarget = normalizeClanName(targetClan);
+            const matchingMember = membersList.find(m => 
+                normalizeClanName(m.Clan_Name) === normalizedTarget
+            );
+            
+            return matchingMember ? matchingMember.Clan_Name : targetClan;
+        }
+
         function renderMembersTable() {
             const tbody = document.querySelector('#membersTable tbody');
             
@@ -517,10 +565,20 @@
                 return;
             }
 
-            const clanMembers = allMembers.filter(member => member.Clan_Name === currentClan);
+            // Find the correct clan name in members data
+            const matchingClanName = findMatchingClanName(currentClan, allMembers);
+            const clanMembers = allMembers.filter(member => member.Clan_Name === matchingClanName);
+            
+            console.log('Looking for clan:', currentClan);
+            console.log('Found matching name:', matchingClanName);
+            console.log('Found members:', clanMembers.length);
             
             if (clanMembers.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="5" class="loading">No members found for this clan</td></tr>';
+                tbody.innerHTML = `
+                    <tr><td colspan="5" class="loading">
+                        No members found for ${currentClan}<br>
+                        <small style="color: var(--text-muted);">Available clans in member data: ${[...new Set(allMembers.map(m => m.Clan_Name))].join(', ')}</small>
+                    </td></tr>`;
                 return;
             }
 
@@ -595,7 +653,9 @@
             
             if (!currentClan) return;
 
-            const clanMembers = allMembers.filter(member => member.Clan_Name === currentClan);
+            // Find the correct clan name in members data
+            const matchingClanName = findMatchingClanName(currentClan, allMembers);
+            const clanMembers = allMembers.filter(member => member.Clan_Name === matchingClanName);
             
             clanMembers.sort((a, b) => {
                 let valueA, valueB;
@@ -617,7 +677,7 @@
             });
 
             // Update the allMembers array for this clan
-            allMembers = allMembers.filter(member => member.Clan_Name !== currentClan).concat(clanMembers);
+            allMembers = allMembers.filter(member => member.Clan_Name !== matchingClanName).concat(clanMembers);
             
             renderMembersTable();
         }
@@ -627,7 +687,9 @@
             
             if (!currentClan) return;
 
-            let clanMembers = allMembers.filter(member => member.Clan_Name === currentClan);
+            // Find the correct clan name in members data
+            const matchingClanName = findMatchingClanName(currentClan, allMembers);
+            let clanMembers = allMembers.filter(member => member.Clan_Name === matchingClanName);
             
             if (searchTerm) {
                 clanMembers = clanMembers.filter(member => 
