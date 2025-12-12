@@ -607,12 +607,17 @@
             const matchingClanName = findMatchingClanName(currentClan, allMembers);
             let clanMembers = allMembers.filter(member => member.Clan_Name === matchingClanName);
             
-            // Sort members by position (rank) - lowest position number first
-            clanMembers.sort((a, b) => {
-                const posA = parseInt(a.Attack_Position) || 999;
-                const posB = parseInt(b.Attack_Position) || 999;
-                return posA - posB;
-            });
+            // Don't auto-sort here - let user choose sorting via buttons
+            // Default to attack position sorting only when clan is first loaded
+            if (!clanMembers.some(m => m._sorted)) {
+                clanMembers.sort((a, b) => {
+                    const posA = parseInt(a.Attack_Position) || 999;
+                    const posB = parseInt(b.Attack_Position) || 999;
+                    return posA - posB;
+                });
+                // Mark as having default sort
+                clanMembers.forEach(m => m._sorted = true);
+            }
             
             console.log('Looking for clan:', currentClan);
             console.log('Found matching name:', matchingClanName);
@@ -710,28 +715,28 @@
 
             // Find the correct clan name in members data
             const matchingClanName = findMatchingClanName(currentClan, allMembers);
-            const clanMembers = allMembers.filter(member => member.Clan_Name === matchingClanName);
+            let clanMembers = allMembers.filter(member => member.Clan_Name === matchingClanName);
             
             clanMembers.sort((a, b) => {
-                let valueA, valueB;
+                let posA, posB;
                 
                 switch(field) {
                     case 'attack':
-                        valueA = parseFloat(a.Attack.replace(/[^\d.]/g, '')) || 0;
-                        valueB = parseFloat(b.Attack.replace(/[^\d.]/g, '')) || 0;
+                        posA = parseInt(a.Attack_Position) || 999;
+                        posB = parseInt(b.Attack_Position) || 999;
                         break;
                     case 'relics':
-                        valueA = parseInt(a.Relic_Cores.replace(/\+/g, '')) || 0;
-                        valueB = parseInt(b.Relic_Cores.replace(/\+/g, '')) || 0;
+                        posA = parseInt(a.Relic_Position) || 999;
+                        posB = parseInt(b.Relic_Position) || 999;
                         break;
                     default:
                         return 0;
                 }
                 
-                return valueB - valueA; // Always descending for members
+                return posA - posB; // Sort by position (rank) - lower numbers first
             });
 
-            // Update the allMembers array for this clan
+            // Update the global members array for this clan
             allMembers = allMembers.filter(member => member.Clan_Name !== matchingClanName).concat(clanMembers);
             
             renderMembersTable();
