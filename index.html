@@ -475,10 +475,6 @@
             }
 
             const html = allClans.map(clan => {
-                const rankChange = Math.floor(Math.random() * 21) - 10; // Random for demo
-                const rankChangeClass = rankChange > 0 ? 'rank-up' : rankChange < 0 ? 'rank-down' : '';
-                const rankChangeSymbol = rankChange > 0 ? '+' : '';
-                
                 // Parse Lunar Points (Grade_Score) to extract base points and change
                 let lunarPoints = 'N/A';
                 if (clan.Grade_Score) {
@@ -498,10 +494,7 @@
                         <td class="numeric">${clan.Total_Relic_Cores}</td>
                         <td class="numeric">${lunarPoints}</td>
                         <td class="numeric">${clan.Phase_Score ? clan.Phase_Score.toLocaleString() : 'N/A'}</td>
-                        <td class="numeric">
-                            ${clan.Global_Rank}
-                            ${rankChange !== 0 ? `<span class="rank-change ${rankChangeClass}">(${rankChangeSymbol}${rankChange})</span>` : ''}
-                        </td>
+                        <td class="numeric">${clan.Global_Rank}</td>
                     </tr>
                 `;
             }).join('');
