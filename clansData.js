@@ -6,7 +6,7 @@ const clansData = [
   {
     "Batch": 1,
     "Global_Rank": "159",
-    "Guild_ID": "29000",
+    "Guild_ID": "23429",
     "Name": "SaltyStrays",
     "Level": "16",
     "Grade": "Legend 3",
@@ -16,7 +16,7 @@ const clansData = [
     "Member_Count": "38/40",
     "Extraction_Time": "2025-12-18 09:28:01",
     "LME_Level": 12,
-    "Phase_Score": 28000
+    "Phase_Score": 29000
   },
   {
     "Batch": 1,
