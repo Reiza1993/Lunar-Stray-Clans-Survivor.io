@@ -516,7 +516,6 @@
                 const rankChange = formatChangeIndicator(changes.rank, 'rank');
                 const attackChange = formatChangeIndicator(changes.attack, 'attack');
                 const relicsChange = formatChangeIndicator(changes.relics, 'relics');
-                const lunarChange = formatChangeIndicator(changes.lunar, 'lunar');
                 
                 return `
                     <tr>
@@ -526,6 +525,7 @@
                         <td class="numeric">${clan.Total_Attack}${attackChange}</td>
                         <td><span class="lme-badge ${getLMEClass(clan.LME_Level)}">D${clan.LME_Level || 'N/A'}</span></td>
                         <td class="numeric">${clan.Total_Relic_Cores}${relicsChange}</td>
+                        <td class="numeric">${lunarPoints}</td>
                         <td class="numeric">${clan.Phase_Score ? clan.Phase_Score.toLocaleString() : 'N/A'}</td>
                         <td class="numeric">${clan.Global_Rank}${rankChange}</td>
                     </tr>
