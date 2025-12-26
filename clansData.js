@@ -61,7 +61,7 @@ const clansData = [
     "Member_Count": "35/40",
     "Extraction_Time": "2025-12-25 23:54:46",
     "LME_Level": 11,
-    "Phase_Score": 22000
+    "Phase_Score": 26000
   },
   {
     "Batch": 2,
