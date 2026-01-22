@@ -499,8 +499,8 @@
             }
 
             const html = allClans.map(clan => {
-                // Get changes for this clan
-                const changes = getClanChanges(clan.Name);
+                // Get changes for this clan by Guild_ID
+                const changes = getClanChanges(clan.Guild_ID);
                 
                 // Parse Lunar Points (Grade_Score) to extract base points and change
                 let lunarPoints = 'N/A';
@@ -616,8 +616,8 @@
             return ` <span class="rank-change ${className}">(${displayValue})</span>`;
         }
 
-        function getClanChanges(clanName) {
-            return clansChangesData[clanName] || {};
+        function getClanChanges(guildId) {
+            return clansChangesData[guildId] || {};
         }
 
         function normalizeClanName(name) {
