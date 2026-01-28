@@ -90,8 +90,8 @@ const clansData = [
     "Total_Attack": "28.54M",
     "Member_Count": "40/40",
     "Extraction_Time": "2026-01-29 08:37:06",
-    "LME_Level": 10,
-    "Phase_Score": 16200
+    "LME_Level": 11,
+    "Phase_Score": 20000
   },
   {
     "Batch": 2,
