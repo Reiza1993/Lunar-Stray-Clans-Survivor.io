@@ -301,6 +301,10 @@
             font-weight: 500;
         }
         
+        .lme-d13 {
+            background: #dc2626; /* Dark Red/Orange for D13 - Maximum difficulty! */
+        }
+        
         .lme-d12 {
             background: #9333ea; /* Purple for D12 */
         }
@@ -577,6 +581,8 @@
 
         function getLMEClass(lmeLevel) {
             switch(lmeLevel) {
+                case 13:
+                    return 'lme-d13'; // Gold
                 case 12:
                     return 'lme-d12'; // Purple
                 case 11:
