@@ -354,7 +354,6 @@
                         <button class="sort-btn" onclick="sortClans('lme')">LME</button>
                         <button class="sort-btn" onclick="sortClans('relics')">Relics</button>
                         <button class="sort-btn" onclick="sortClans('grade')">Lunar Points</button>
-                        <button class="sort-btn" onclick="sortClans('phase')">Phase 1</button>
                         <button class="sort-btn" onclick="sortClans('rank')">Rank</button>
                     </div>
                 </div>
@@ -370,12 +369,11 @@
                                 <th>LME</th>
                                 <th class="numeric">Total Relics</th>
                                 <th class="numeric">Lunar Points</th>
-                                <th class="numeric">Phase 1 Score</th>
                                 <th class="numeric">Global Rank</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><td colspan="9" class="loading">Loading clan data...</td></tr>
+                            <tr><td colspan="8" class="loading">Loading clan data...</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -450,7 +448,6 @@
                         Total_Attack: 'N/A',
                         LME_Level: null,
                         Total_Relic_Cores: 'N/A',
-                        Phase_Score: null,
                         Global_Rank: 'N/A'
                     }));
                 }
@@ -498,7 +495,7 @@
             const tbody = document.querySelector('#clansTable tbody');
             
             if (allClans.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="9" class="loading">No clan data available</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="8" class="loading">No clan data available</td></tr>';
                 return;
             }
 
@@ -530,7 +527,6 @@
                         <td><span class="lme-badge ${getLMEClass(clan.LME_Level)}">D${clan.LME_Level || 'N/A'}</span></td>
                         <td class="numeric">${clan.Total_Relic_Cores}${relicsChange}</td>
                         <td class="numeric">${lunarPoints}</td>
-                        <td class="numeric">${clan.Phase_Score ? clan.Phase_Score.toLocaleString() : 'N/A'}</td>
                         <td class="numeric">${clan.Global_Rank}${rankChange}</td>
                     </tr>
                 `;
@@ -743,10 +739,6 @@
                         // Extract numeric value from Grade_Score (e.g., "1180 +30" -> 1180)
                         valueA = parseInt((a.Grade_Score || '0').split(' ')[0]) || 0;
                         valueB = parseInt((b.Grade_Score || '0').split(' ')[0]) || 0;
-                        break;
-                    case 'phase':
-                        valueA = a.Phase_Score || 0;
-                        valueB = b.Phase_Score || 0;
                         break;
                     case 'rank':
                         valueA = parseInt(a.Global_Rank) || 999999;
