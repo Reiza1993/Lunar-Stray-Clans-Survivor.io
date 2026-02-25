@@ -3,840 +3,833 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stray Clans Collective</title>
+    <title>Freedomˢᵗʳᵃʸ Clan Stats</title>
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-        
-        :root {
-            --primary-color: #3b82f6;
-            --secondary-color: #6366f1;
-            --bg-color: #0f172a;
-            --surface-color: #1e293b;
-            --border-color: #334155;
-            --text-primary: #f8fafc;
-            --text-secondary: #cbd5e1;
-            --text-muted: #64748b;
-            --success-color: #10b981;
-            --warning-color: #f59e0b;
-            --error-color: #ef4444;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
         body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg-color);
-            color: var(--text-primary);
-            line-height: 1.5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+            min-height: 100vh;
+            color: #e2e8f0;
         }
         
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
         }
         
-        header {
+        h1 {
             text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        .title {
-            font-size: 2.5rem;
+            color: #f7fafc;
+            margin-bottom: 10px;
+            font-size: 2.5em;
             font-weight: 700;
-            color: var(--primary-color);
-            margin-bottom: 20px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
-        .stats-summary {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 30px;
-        }
-        
-        .stat-card {
-            background: var(--surface-color);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 16px 24px;
+        .clan-name {
             text-align: center;
-            min-width: 120px;
+            color: #a0aec0;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            font-weight: 500;
         }
         
-        .stat-value {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--primary-color);
-        }
-        
-        .stat-label {
-            font-size: 0.875rem;
-            color: var(--text-secondary);
-            margin-top: 4px;
-        }
-        
-        .main-content {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 30px;
-        }
-        
-        .clans-overview {
-            background: var(--surface-color);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 24px;
-        }
-        
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .controls {
             margin-bottom: 20px;
-        }
-        
-        .section-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-        
-        .sort-controls {
             display: flex;
-            gap: 10px;
+            gap: 15px;
             flex-wrap: wrap;
+            align-items: center;
         }
         
-        .sort-btn {
-            padding: 6px 12px;
-            background: transparent;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            color: var(--text-secondary);
-            font-size: 0.875rem;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .sort-btn:hover, .sort-btn.active {
-            background: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
-        }
-        
-        .table-container {
-            overflow-x: auto;
+        select, input {
+            padding: 10px 15px;
+            border: 2px solid #4a5568;
             border-radius: 8px;
-            border: 1px solid var(--border-color);
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background: #2d3748;
+            color: #e2e8f0;
+        }
+        
+        select:focus, input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+        }
+        
+        .search-box {
+            flex-grow: 1;
+            min-width: 200px;
         }
         
         table {
             width: 100%;
             border-collapse: collapse;
-            background: var(--bg-color);
+            margin-top: 20px;
+            background: #2d3748;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            font-size: 14px;
         }
         
         th, td {
-            padding: 12px 16px;
-            text-align: left;
-            border-bottom: 1px solid var(--border-color);
+            padding: 8px 4px;
+            word-break: break-word;
         }
         
         th {
-            background: var(--surface-color);
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-align: center;
             font-weight: 600;
-            color: var(--text-primary);
-            font-size: 0.875rem;
+            font-size: 12px;
             text-transform: uppercase;
-            letter-spacing: 0.025em;
+            letter-spacing: 0.5px;
         }
         
         td {
-            color: var(--text-secondary);
+            border-bottom: 1px solid #4a5568;
+            transition: background-color 0.2s ease;
+            color: #e2e8f0;
+            text-align: center;
+            font-size: 13px;
         }
         
         tr:hover {
-            background: rgba(59, 130, 246, 0.05);
+            background-color: #374151;
         }
         
-        .clan-name {
-            color: var(--text-primary);
+        tr:nth-child(even) {
+            background-color: #374151;
+        }
+        
+        .rank-cell {
             font-weight: 600;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-        
-        .clan-name:hover {
-            color: var(--primary-color);
-        }
-        
-        .rank-change {
-            font-size: 0.8rem;
-            margin-left: 4px;
-        }
-        
-        .rank-up {
-            color: var(--success-color);
-        }
-        
-        .rank-down {
-            color: var(--error-color);
-        }
-        
-        .members-section {
-            background: var(--surface-color);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 24px;
-        }
-        
-        .clan-tabs {
-            display: flex;
-            gap: 4px;
-            margin-bottom: 20px;
-            overflow-x: auto;
-            padding-bottom: 4px;
-        }
-        
-        .clan-tab {
-            padding: 8px 16px;
-            background: transparent;
-            border: 1px solid var(--border-color);
+            color: #f7fafc;
+            background: linear-gradient(135deg, #4a5568, #2d3748);
             border-radius: 6px;
-            color: var(--text-secondary);
-            cursor: pointer;
-            transition: all 0.2s;
-            white-space: nowrap;
-            font-size: 0.875rem;
-        }
-        
-        .clan-tab.active {
-            background: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
-        }
-        
-        .members-controls {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-            align-items: center;
-        }
-        
-        .search-input {
-            padding: 8px 12px;
-            background: var(--bg-color);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            color: var(--text-primary);
-            font-size: 0.875rem;
-            width: 200px;
-        }
-        
-        .search-input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-        }
-        
-        .loading {
             text-align: center;
-            padding: 40px;
-            color: var(--text-muted);
+            width: 60px;
         }
         
-        .member-rank {
+        .name-cell {
+            font-weight: 500;
+            max-width: 200px;
+            word-break: break-word;
+        }
+        
+        .cores-cell {
             font-weight: 600;
-            color: var(--primary-color);
+            color: #b794f6;
+            text-align: center;
         }
         
-        .member-stat {
-            font-family: monospace;
-            font-size: 0.9rem;
+        .role-glorymember {
+            animation: glow 2s ease-in-out infinite alternate;
         }
+        
+        @keyframes glow {
+            from { text-shadow: 0 0 5px #ffd700; }
+            to { text-shadow: 0 0 15px #ffd700, 0 0 20px #ffd700; }
+        }
+        
+        .export-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-left: 10px;
+        }
+        
+        .export-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Calculated Stats Section */
+        .calc-stats-section {
+            margin-bottom: 20px;
+        }
+
+        .calc-stats-header {
+            text-align: center;
+            color: #a0aec0;
+            font-size: 0.78em;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .calc-stats-header::before,
+        .calc-stats-header::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #4a5568);
+        }
+
+        .calc-stats-header::after {
+            background: linear-gradient(90deg, #4a5568, transparent);
+        }
+
+        .calc-stat-card {
+            background: #2d3748;
+            border: 1px solid #4a5568;
+            padding: 10px 8px;
+            border-radius: 8px;
+            text-align: center;
+            position: relative;
+        }
+
+        .calc-stat-label {
+            color: #718096;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+
+        .calc-stat-value {
+            font-size: 1.05em;
+            font-weight: 700;
+        }
+
+        .calc-stat-gain {
+            font-size: 10px;
+            margin-top: 2px;
+            font-weight: 600;
+        }
+
+        .gain-positive { color: #10b981; }
+        .gain-negative { color: #f56565; }
+        .gain-neutral  { color: #a0aec0; }
         
         @media (max-width: 768px) {
-            .container {
+            body {
                 padding: 10px;
             }
             
-            .title {
-                font-size: 2rem;
+            h1 {
+                font-size: 2em;
             }
             
-            .stats-summary {
-                gap: 10px;
-            }
-            
-            .stat-card {
-                padding: 12px 16px;
-                min-width: 100px;
-            }
-            
-            .section-header {
+            .controls {
                 flex-direction: column;
-                gap: 15px;
                 align-items: stretch;
             }
             
-            .sort-controls {
-                justify-content: center;
+            table {
+                font-size: 12px;
+                border-radius: 8px;
             }
-        }
-        
-        .numeric {
-            text-align: right;
-        }
-        
-        .lme-badge {
-            color: white;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-        
-        .lme-d13 {
-            background: #dc2626; /* Dark Red/Orange for D13 - Maximum difficulty! */
-        }
-        
-        .lme-d12 {
-            background: #9333ea; /* Purple for D12 */
-        }
-        
-        .lme-d11 {
-            background: var(--secondary-color); /* Blue for D11 */
-        }
-        
-        .lme-d10 {
-            background: #06b6d4; /* Turquoise for D10 */
-        }
-        
-        .lme-default {
-            background: var(--text-muted); /* Default gray for other levels */
+            
+            th, td {
+                padding: 6px 2px;
+                font-size: 11px;
+            }
+            
+            th {
+                font-size: 10px;
+            }
+            
+            .name-cell {
+                max-width: 80px;
+                font-size: 11px;
+            }
+            
+            .export-btn {
+                font-size: 14px;
+                padding: 10px 16px;
+                margin-left: 0;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1 class="title">Stray Clans Collective</h1>
-            
-            <div class="stats-summary">
-                <div class="stat-card">
-                    <div class="stat-value" id="totalClans">-</div>
-                    <div class="stat-label">Clans</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value" id="totalMembers">-</div>
-                    <div class="stat-label">Members</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value" id="lastUpdated">-</div>
-                    <div class="stat-label">Updated</div>
-                </div>
+        <h1>Clan Statistics</h1>
+        <div class="clan-name">Freedomˢᵗʳᵃʸ</div>
+        <div style="text-align: center; color: #a0aec0; font-size: 1em; margin-bottom: 10px; font-weight: 400;">ClanID: 44262</div>
+        
+        <!-- LME Info Row -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 10px; text-align: center;">
+            <div style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 10px; border-radius: 8px; font-size: 14px; font-weight: 600; min-height: 40px; display: flex; align-items: center; justify-content: center;">
+                LME Phase: <span id="lmePhase">—</span> <img src="https://raw.githubusercontent.com/Reiza1993/StrayToFreedom-Clan-Stats/main/Game%20Icons/Medals.png" alt="" style="width: 16px; height: 16px; margin-left: 8px; vertical-align: middle;" onerror="this.style.display='none';">
             </div>
-        </header>
+            <div style="background: linear-gradient(135deg, #ed8936, #dd6b20); color: white; padding: 10px; border-radius: 8px; font-size: 14px; font-weight: 600; min-height: 40px; display: flex; align-items: center; justify-content: center;">
+                LME Difficulty <span id="lmeDifficulty">—</span>
+            </div>
+            <div style="background: linear-gradient(135deg, #38b2ac, #319795); color: white; padding: 10px; border-radius: 8px; font-size: 14px; font-weight: 600; min-height: 40px; display: flex; flex-direction: column; align-items: center; justify-content: center; grid-column: 1 / -1; line-height: 1.2;">
+                <div>LME League: <span id="lmeLeague">—</span></div>
+                <div>Lunar Points: <span id="lunarPoints">—</span> <span id="lunarPointsCalcNote" style="font-size:10px; opacity:0.75;"></span></div>
+            </div>
+        </div>
 
-        <div class="main-content">
-            <!-- Clans Overview Table -->
-            <div class="clans-overview">
-                <div class="section-header">
-                    <h2 class="section-title">Clans Overview</h2>
-                    <div class="sort-controls">
-                        <button class="sort-btn active" onclick="sortClans('members')">Members</button>
-                        <button class="sort-btn" onclick="sortClans('attack')">Total ATK</button>
-                        <button class="sort-btn" onclick="sortClans('lme')">LME</button>
-                        <button class="sort-btn" onclick="sortClans('relics')">Relics</button>
-                        <button class="sort-btn" onclick="sortClans('grade')">Lunar Points</button>
-                        <button class="sort-btn" onclick="sortClans('rank')">Rank</button>
+        <!-- Members / Auto-Calc Totals Row -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 10px; text-align: center;">
+            <div style="background: linear-gradient(135deg, #38b2ac, #319795); color: white; padding: 10px; border-radius: 8px; font-size: 14px; font-weight: 600; min-height: 40px; display: flex; align-items: center; justify-content: center;">
+                Members: <span id="totalMembers" style="margin-left:4px;">—</span>
+            </div>
+            <div style="background: linear-gradient(135deg, #38b2ac, #319795); color: white; padding: 10px; border-radius: 8px; font-size: 13px; font-weight: 600; min-height: 40px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                <span style="font-size:10px; opacity:0.85; margin-bottom:2px;">TOP 30 TOTAL CORES</span>
+                <span id="totalCores">—</span>
+                <span id="totalCoresGainBadge" style="font-size:10px; margin-top:1px;"></span>
+            </div>
+            <div style="background: linear-gradient(135deg, #ed8936, #dd6b20); color: white; padding: 10px; border-radius: 8px; font-size: 13px; font-weight: 600; min-height: 40px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                <span style="font-size:10px; opacity:0.85; margin-bottom:2px;">TOP 30 TOTAL ATK</span>
+                <span id="totalAttack">—</span>
+                <span id="totalAttackGainBadge" style="font-size:10px; margin-top:1px;"></span>
+            </div>
+            <div style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 10px; border-radius: 8px; font-size: 13px; font-weight: 600; min-height: 40px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                <span style="font-size:10px; opacity:0.85; margin-bottom:2px;">TOP 30 AVG ATK</span>
+                <span id="avgAttack">—</span>
+            </div>
+        </div>
+
+        <!-- ═══ Calculated Stats Section ═══ -->
+        <div class="calc-stats-section">
+            <div class="calc-stats-header">📊 Auto-Calculated Stats (Top 30)</div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px;">
+
+                <!-- ATK -->
+                <div class="calc-stat-card" style="border-color: #553c9a;">
+                    <div class="calc-stat-label">Total ATK</div>
+                    <div class="calc-stat-value" style="color: #e2e8f0;" id="calc-total-atk">—</div>
+                    <div class="calc-stat-gain" id="calc-total-atk-gain">—</div>
+                </div>
+                <div class="calc-stat-card" style="border-color: #553c9a;">
+                    <div class="calc-stat-label">Avg ATK</div>
+                    <div class="calc-stat-value" style="color: #e2e8f0;" id="calc-avg-atk">—</div>
+                </div>
+
+                <!-- Cores -->
+                <div class="calc-stat-card" style="border-color: #44337a;">
+                    <div class="calc-stat-label">Total Cores</div>
+                    <div class="calc-stat-value" style="color: #b794f6;" id="calc-total-cores">—</div>
+                    <div class="calc-stat-gain" id="calc-total-cores-gain">—</div>
+                </div>
+                <div class="calc-stat-card" style="border-color: #44337a;">
+                    <div class="calc-stat-label">Avg Cores</div>
+                    <div class="calc-stat-value" style="color: #b794f6;" id="calc-avg-cores">—</div>
+                </div>
+
+                <!-- LME -->
+                <div class="calc-stat-card" style="border-color: #744210;">
+                    <div class="calc-stat-label">Total LME Score</div>
+                    <div class="calc-stat-value" style="color: #f59e0b;" id="calc-total-lme">—</div>
+                    <div class="calc-stat-gain" id="calc-total-lme-gain">—</div>
+                </div>
+                <div class="calc-stat-card" style="border-color: #744210;">
+                    <div class="calc-stat-label">Avg LME Score</div>
+                    <div class="calc-stat-value" style="color: #f59e0b;" id="calc-avg-lme">—</div>
+                </div>
+
+                <!-- CX (full width) -->
+                <div class="calc-stat-card" style="border-color: #276749; grid-column: span 2;">
+                    <div class="calc-stat-label">Total CX Score (All Members)</div>
+                    <div class="calc-stat-value" style="color: #68d391;" id="calc-total-cx">—</div>
+                    <div class="calc-stat-gain" id="calc-total-cx-gain">—</div>
+                </div>
+
+            </div>
+        </div>
+        
+        <div class="controls">
+            <input type="text" id="searchInput" placeholder="Search player names..." class="search-box">
+            <select id="sortSelect">
+                <option value="lme">Sort by LME Score</option>
+                <option value="cx">Sort by CX</option>
+                <option value="cores">Sort by Relic Cores</option>
+                <option value="attack">Sort by ATK</option>
+                <option value="name">Sort by Name</option>
+                <option value="role">Sort by Role</option>
+            </select>
+            <button class="export-btn" onclick="exportToCSV()">Export CSV</button>
+            <button class="export-btn" onclick="openLMEHistory()">LME History</button>
+            <button class="export-btn" onclick="openAlumni()">Alumni</button>
+        </div>
+        
+        <!-- Compact Role Legend -->
+        <div style="display: flex; justify-content: center; gap: 20px; margin-bottom: 15px; flex-wrap: wrap; font-size: 12px;">
+            <span style="color: #fc8181; font-weight: 600;">● Leader</span>
+            <span style="color: #ed8936; font-weight: 600;">● Vice-Leader</span>
+            <span style="color: #ffd700; font-weight: 600; text-shadow: 0 0 10px #ffd700;">★ Glory Member</span>
+        </div>
+        
+        <table id="playerTable">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Player Name</th>
+                    <th>
+                        <img src="https://raw.githubusercontent.com/Reiza1993/StrayToFreedom-Clan-Stats/main/Game%20Icons/Relic%20Cores.png" alt="Relic Cores" style="width: 20px; height: 20px; vertical-align: middle;" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
+                        <span style="display: none;">Relic Cores</span>
+                    </th>
+                    <th>
+                        <img src="https://raw.githubusercontent.com/Reiza1993/StrayToFreedom-Clan-Stats/main/Game%20Icons/ATK.png" alt="ATK" style="width: 20px; height: 20px; vertical-align: middle;" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
+                        <span style="display: none;">ATK</span>
+                    </th>
+                    <th>
+                        <img src="https://raw.githubusercontent.com/Reiza1993/StrayToFreedom-Clan-Stats/main/Game%20Icons/Medals.png" alt="LME" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 6px;" onerror="this.style.display='none';">
+                        LME 1st Phase
+                    </th>
+                    <th>
+                        <img src="https://raw.githubusercontent.com/Reiza1993/StrayToFreedom-Clan-Stats/main/Game%20Icons/CX.png" alt="CX" style="width: 20px; height: 20px; vertical-align: middle;" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
+                        <span style="display: none;">CX</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+            </tbody>
+        </table>
+
+        <!-- LME History Modal -->
+        <div id="lmeHistoryModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; overflow-y: auto;">
+            <div style="position: relative; margin: 15px auto; padding: 15px; background: #2d3748; border-radius: 15px; max-width: 98%; width: 100%; max-height: 90vh; overflow-y: auto; border: 1px solid #4a5568;">
+                <span onclick="closeLMEHistory()" style="position: absolute; top: 10px; right: 15px; font-size: 24px; cursor: pointer; color: #a0aec0;">&times;</span>
+                <h2 style="color: #f7fafc; margin-bottom: 20px; text-align: center; font-size: 1.5em; margin-top: 10px;">🌙 LME History</h2>
+                
+                <!-- Secret Score Calculator Row -->
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 15px;">
+                    <div style="background: linear-gradient(135deg, #667eea, #764ba2); padding: 14px 10px; border-radius: 10px; text-align: center;">
+                        <div style="font-size: 0.8em; color: rgba(255,255,255,0.9); margin-bottom: 5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; white-space: nowrap;">Lunar Points</div>
+                        <div style="font-size: 1.6em; font-weight: 700; color: white;" id="historyLunarPoints">—</div>
+                    </div>
+                    <div style="background: linear-gradient(135deg, #38b2ac, #319795); padding: 14px 10px; border-radius: 10px; text-align: center;">
+                        <div style="font-size: 0.8em; color: rgba(255,255,255,0.9); margin-bottom: 5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; white-space: nowrap;">Rank Factor</div>
+                        <div style="font-size: 1.6em; font-weight: 700; color: white;" id="historyRankFactor">1.0000</div>
+                    </div>
+                    <div style="background: linear-gradient(135deg, #ffd700, #ed8936); padding: 14px 10px; border-radius: 10px; text-align: center; border: 2px solid #ffd700; box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);">
+                        <div style="font-size: 0.8em; color: rgba(0,0,0,0.8); margin-bottom: 5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; white-space: nowrap;">Secret Score</div>
+                        <div style="font-size: 1.6em; font-weight: 700; color: #1a202c;" id="historySecretScore">—</div>
                     </div>
                 </div>
                 
-                <div class="table-container">
-                    <table id="clansTable">
-                        <thead>
-                            <tr>
-                                <th>Clan Name</th>
-                                <th>Guild ID</th>
-                                <th class="numeric">Members</th>
-                                <th class="numeric">Total ATK</th>
-                                <th>LME</th>
-                                <th class="numeric">Total Relics</th>
-                                <th class="numeric">Lunar Points</th>
-                                <th class="numeric">Global Rank</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td colspan="8" class="loading">Loading clan data...</td></tr>
-                        </tbody>
-                    </table>
-                </div>
+                <table id="lmeHistoryTable" style="width: 100%; border-collapse: collapse; background: #2d3748; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4); font-size: 12px;">
+                    <thead>
+                        <tr>
+                            <th style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 10px 6px; text-align: center; font-weight: 600; font-size: 10px; text-transform: uppercase; letter-spacing: 0.2px; white-space: nowrap;">
+                                🌙
+                            </th>
+                            <th style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 10px 6px; text-align: center; font-weight: 600; font-size: 10px; text-transform: uppercase; letter-spacing: 0.2px; white-space: nowrap;">
+                                <img src="https://raw.githubusercontent.com/Reiza1993/StrayToFreedom-Clan-Stats/main/Game%20Icons/Ranking.png" alt="Ranking" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 3px;" onerror="this.style.display='none';">
+                                RANK
+                            </th>
+                            <th style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 10px 6px; text-align: center; font-weight: 600; font-size: 10px; text-transform: uppercase; letter-spacing: 0.2px; white-space: nowrap;">
+                                <img src="https://raw.githubusercontent.com/Reiza1993/StrayToFreedom-Clan-Stats/main/Game%20Icons/Defense_Attack%20Points.png" alt="ATK/DEF" style="width: 18px; height: 18px; vertical-align: middle;" onerror="this.innerHTML='A/D';">
+                            </th>
+                            <th style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 10px 6px; text-align: center; font-weight: 600; font-size: 10px; text-transform: uppercase; letter-spacing: 0.2px; white-space: nowrap;">
+                                <img src="https://raw.githubusercontent.com/Reiza1993/StrayToFreedom-Clan-Stats/main/Game%20Icons/Medals.png" alt="Emblems" style="width: 18px; height: 18px; vertical-align: middle;" onerror="this.innerHTML='EMBLEMS';">
+                            </th>
+                            <th style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 10px 6px; text-align: center; font-weight: 600; font-size: 10px; text-transform: uppercase; letter-spacing: 0.2px; white-space: nowrap;">LEAGUE</th>
+                            <th style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 10px 6px; text-align: center; font-weight: 600; font-size: 10px; text-transform: uppercase; letter-spacing: 0.2px; white-space: nowrap;">🌙 PTS</th>
+                        </tr>
+                    </thead>
+                    <tbody id="lmeHistoryBody">
+                    </tbody>
+                </table>
             </div>
+        </div>
 
-            <!-- Members Section with Clan Tabs -->
-            <div class="members-section">
-                <div class="section-header">
-                    <h2 class="section-title">Members</h2>
-                    <div class="members-controls">
-                        <input type="text" id="memberSearch" class="search-input" placeholder="Search members...">
-                        <div class="sort-controls">
-                            <button class="sort-btn active" onclick="sortMembers('attack')">Attack</button>
-                            <button class="sort-btn" onclick="sortMembers('relics')">Relic Cores</button>
-                        </div>
-                    </div>
+        <!-- Alumni Modal -->
+        <div id="alumniModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; overflow-y: auto;">
+            <div style="position: relative; margin: 20px auto; padding: 20px; background: #2d3748; border-radius: 15px; max-width: 95%; width: 600px; max-height: 90vh; overflow-y: auto; border: 1px solid #4a5568;">
+                <span onclick="closeAlumni()" style="position: absolute; top: 10px; right: 15px; font-size: 24px; cursor: pointer; color: #a0aec0;">&times;</span>
+                <h2 style="color: #f7fafc; margin-bottom: 20px; text-align: center; font-size: 1.5em; margin-top: 10px;">👥 Freedomˢᵗʳᵃʸ Alumni</h2>
+                
+                <div style="background: #374151; border-radius: 8px; padding: 15px; margin-bottom: 15px; text-align: center;">
+                    <p style="color: #e2e8f0; margin: 0; font-size: 14px; line-height: 1.4;">
+                        <strong style="color: #ffd700;"><span id="alumniCount">—</span> Alumni Members</strong><br>
+                        <span style="color: #a0aec0;">Former clan members who contributed to our journey</span>
+                    </p>
                 </div>
                 
-                <div class="clan-tabs" id="clanTabs">
-                    <div class="loading">Loading clans...</div>
-                </div>
-                
-                <div class="table-container">
-                    <table id="membersTable">
-                        <thead>
-                            <tr>
-                                <th>Member Name</th>
-                                <th class="numeric">Attack Rank</th>
-                                <th class="numeric">Attack Power</th>
-                                <th class="numeric">Relic Rank</th>
-                                <th class="numeric">Relic Cores</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td colspan="5" class="loading">Select a clan to view members...</td></tr>
-                        </tbody>
-                    </table>
+                <div id="alumniGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; max-height: 400px; overflow-y: auto; padding: 10px; background: #374151; border-radius: 8px;">
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="clansData.js"></script>
-    <script src="membersData.js"></script>
+    <!-- Load external data files -->
+    <script src="clanStats.js"></script>
+    <script src="playerData.js"></script>
+
     <script>
-        let allClans = [];
-        let allMembers = [];
-        let clansChangesData = {};
-        let currentClan = null;
-        let currentSort = { type: 'clans', field: 'members', direction: 'desc' };
+        let filteredData = [...playerData];
+        let currentSort = 'lme';
 
-        document.addEventListener('DOMContentLoaded', function() {
-            loadData();
-            setupEventListeners();
-        });
-
-        function loadData() {
-            try {
-                // Load member data
-                allMembers = typeof membersData !== 'undefined' ? [...membersData] : [];
-                
-                // Load clan data, or extract from members if not available
-                if (typeof clansData !== 'undefined') {
-                    allClans = [...clansData];
-                } else {
-                    // Extract unique clans from members data
-                    const uniqueClans = [...new Set(allMembers.map(m => m.Clan_Name))];
-                    allClans = uniqueClans.map(clanName => ({
-                        Name: clanName,
-                        Guild_ID: 'N/A',
-                        Member_Count: 'N/A',
-                        Total_Attack: 'N/A',
-                        LME_Level: null,
-                        Total_Relic_Cores: 'N/A',
-                        Global_Rank: 'N/A'
-                    }));
-                }
-                
-                // Load changes data if available
-                if (typeof clansChanges !== 'undefined') {
-                    clansChangesData = clansChanges;
-                    console.log('Changes data loaded:', Object.keys(clansChangesData).length, 'clans with changes');
-                } else {
-                    clansChangesData = {};
-                }
-                
-                // Calculate dynamic player counts
-                const currentPlayers = allMembers.length;
-                const maxPlayers = allClans.length * 40; // 40 members per clan max
-                
-                // Update stats
-                document.getElementById('totalClans').textContent = allClans.length;
-                document.getElementById('totalMembers').textContent = `${currentPlayers}/${maxPlayers}`;
-                
-                if (typeof clansMetadata !== 'undefined') {
-                    const date = new Date(clansMetadata.lastUpdated).toLocaleDateString();
-                    document.getElementById('lastUpdated').textContent = date;
-                } else if (typeof membersMetadata !== 'undefined') {
-                    const date = new Date(membersMetadata.lastUpdated).toLocaleDateString();
-                    document.getElementById('lastUpdated').textContent = date;
-                }
-                
-                // Initialize display
-                renderClansTable();
-                renderClanTabs();
-                
-            } catch (error) {
-                console.error('Error loading data:', error);
-                document.querySelector('.loading').textContent = 'Error loading data';
-            }
-        }
-
-        function setupEventListeners() {
-            const searchInput = document.getElementById('memberSearch');
-            searchInput.addEventListener('input', debounce(filterMembers, 300));
-        }
-
-        function renderClansTable() {
-            const tbody = document.querySelector('#clansTable tbody');
-            
-            if (allClans.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="8" class="loading">No clan data available</td></tr>';
-                return;
-            }
-
-            const html = allClans.map(clan => {
-                // Get changes for this clan by Guild_ID
-                const changes = getClanChanges(clan.Guild_ID);
-                
-                // Parse Lunar Points (Grade_Score) to extract base points and change
-                let lunarPoints = 'N/A';
-                if (clan.Grade_Score) {
-                    const parts = clan.Grade_Score.split(' ');
-                    const basePoints = parts[0];
-                    const change = parts[1] || '';
-                    lunarPoints = `${basePoints}${change ? ` <span class="rank-change ${change.startsWith('+') ? 'rank-up' : change.startsWith('-') ? 'rank-down' : ''}">(${change})</span>` : ''}`;
-                }
-                
-                // Add change indicators to each metric
-                const memberCountChange = formatChangeIndicator(changes.members, 'members');
-                const rankChange = formatChangeIndicator(changes.rank, 'rank');
-                const attackChange = formatChangeIndicator(changes.attack, 'attack');
-                const relicsChange = formatChangeIndicator(changes.relics, 'relics');
-                
-                return `
-                    <tr>
-                        <td class="clan-name" onclick="selectClan('${clan.Name}')">${clan.Name}</td>
-                        <td>${clan.Guild_ID}</td>
-                        <td class="numeric">${clan.Member_Count || 'N/A'}${memberCountChange}</td>
-                        <td class="numeric">${clan.Total_Attack}${attackChange}</td>
-                        <td><span class="lme-badge ${getLMEClass(clan.LME_Level)}">D${clan.LME_Level || 'N/A'}</span></td>
-                        <td class="numeric">${clan.Total_Relic_Cores}${relicsChange}</td>
-                        <td class="numeric">${lunarPoints}</td>
-                        <td class="numeric">${clan.Global_Rank}${rankChange}</td>
-                    </tr>
-                `;
-            }).join('');
-            
-            tbody.innerHTML = html;
-        }
-
-        function renderClanTabs() {
-            const tabsContainer = document.getElementById('clanTabs');
-            
-            if (allClans.length === 0) {
-                tabsContainer.innerHTML = '<div class="loading">No clans available</div>';
-                return;
-            }
-
-            // Sort clans alphabetically for better organization
-            const sortedClans = [...allClans].sort((a, b) => a.Name.localeCompare(b.Name));
-
-            const html = sortedClans.map((clan, index) => `
-                <button class="clan-tab ${index === 0 ? 'active' : ''}" 
-                        onclick="selectClan(\`${clan.Name}\`)" 
-                        data-clan="${clan.Name}">
-                    ${clan.Name}
-                </button>
-            `).join('');
-            
-            tabsContainer.innerHTML = html;
-            
-            // Auto-select first clan
-            if (sortedClans.length > 0) {
-                selectClan(sortedClans[0].Name);
-            }
-        }
-
-        function selectClan(clanName) {
-            currentClan = clanName;
-            console.log('Selected clan:', clanName); // Debug log
-            
-            // Update tab appearance
-            document.querySelectorAll('.clan-tab').forEach(tab => {
-                tab.classList.toggle('active', tab.dataset.clan === clanName);
-            });
-            
-            // Filter and display members
-            renderMembersTable();
-        }
-
-        function getLMEClass(lmeLevel) {
-            switch(lmeLevel) {
-                case 13:
-                    return 'lme-d13'; // Gold
-                case 12:
-                    return 'lme-d12'; // Purple
-                case 11:
-                    return 'lme-d11'; // Blue  
-                case 10:
-                    return 'lme-d10'; // Turquoise
-                default:
-                    return 'lme-default'; // Gray
-            }
-        }
-
-        function formatChangeIndicator(changeValue, type = 'default') {
-            if (!changeValue || changeValue === 0) return '';
-            
-            const isPositive = changeValue > 0;
-            const className = isPositive ? 'rank-up' : 'rank-down';
-            const symbol = isPositive ? '+' : '';
-            
-            // Format different types of changes
-            let displayValue = '';
-            switch(type) {
-                case 'rank':
-                    // For rank, positive change means rank improved (went down in number)
-                    displayValue = `${symbol}${changeValue}`;
-                    break;
-                case 'attack':
-                    displayValue = `${symbol}${changeValue.toFixed(1)}M`;
-                    break;
-                case 'members':
-                case 'relics':
-                case 'lunar':
-                default:
-                    displayValue = `${symbol}${changeValue}`;
-                    break;
-            }
-            
-            return ` <span class="rank-change ${className}">(${displayValue})</span>`;
-        }
-
-        function getClanChanges(guildId) {
-            return clansChangesData[guildId] || {};
-        }
-
-        function normalizeClanName(name) {
-            // Normalize clan names to handle character encoding differences
-            // BUT preserve important distinctions like dots in names
-            return name.toUpperCase()
-                      .replace(/[ˢᵗʳᵃʸ]/g, 'STRAY')
-                      .replace(/[⚚]/g, '')
-                      .replace(/[\s\-]/g, '')
-                      // DON'T remove dots - they're significant (ChaoticAF vs ChaoticAF.)
-                      .trim();
-        }
-
-        function findMatchingClanName(targetClan, membersList) {
-            // First try exact match
-            const exactMatch = membersList.find(m => m.Clan_Name === targetClan);
-            if (exactMatch) return targetClan;
-            
-            // Then try normalized matching
-            const normalizedTarget = normalizeClanName(targetClan);
-            const matchingMember = membersList.find(m => 
-                normalizeClanName(m.Clan_Name) === normalizedTarget
-            );
-            
-            return matchingMember ? matchingMember.Clan_Name : targetClan;
-        }
-
-        function renderMembersTable() {
-            const tbody = document.querySelector('#membersTable tbody');
-            
-            if (!currentClan) {
-                tbody.innerHTML = '<tr><td colspan="5" class="loading">Select a clan to view members</td></tr>';
-                return;
-            }
-
-            // Find the correct clan name in members data
-            const matchingClanName = findMatchingClanName(currentClan, allMembers);
-            let clanMembers = allMembers.filter(member => member.Clan_Name === matchingClanName);
-            
-            // Don't auto-sort here - let user choose sorting via buttons
-            // Default to attack position sorting only when clan is first loaded
-            if (!clanMembers.some(m => m._sorted)) {
-                clanMembers.sort((a, b) => {
-                    const posA = parseInt(a.Attack_Position) || 999;
-                    const posB = parseInt(b.Attack_Position) || 999;
-                    return posA - posB;
-                });
-                // Mark as having default sort
-                clanMembers.forEach(m => m._sorted = true);
-            }
-            
-            console.log('Looking for clan:', currentClan);
-            console.log('Found matching name:', matchingClanName);
-            console.log('Found members:', clanMembers.length);
-            
-            if (clanMembers.length === 0) {
-                tbody.innerHTML = `
-                    <tr><td colspan="5" class="loading">
-                        No members found for ${currentClan}<br>
-                        <small style="color: var(--text-muted);">Available clans in member data: ${[...new Set(allMembers.map(m => m.Clan_Name))].join(', ')}</small>
-                    </td></tr>`;
-                return;
-            }
-
-            const html = clanMembers.map(member => `
-                <tr>
-                    <td>${member.Member_Name}</td>
-                    <td class="numeric member-rank">#${member.Attack_Position}</td>
-                    <td class="numeric member-stat">${member.Attack}</td>
-                    <td class="numeric member-rank">#${member.Relic_Position}</td>
-                    <td class="numeric member-stat">${member.Relic_Cores}</td>
-                </tr>
-            `).join('');
-            
-            tbody.innerHTML = html;
-        }
-
-        function sortClans(field) {
-            // Update button appearance
-            document.querySelectorAll('.clans-overview .sort-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            
-            // Toggle direction if same field, but set default direction based on field
-            if (currentSort.type === 'clans' && currentSort.field === field) {
-                currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
+        // ══════════════════════════════════════════════
+        //  UTILITY: Parse gain strings → numeric value
+        //  Handles: "(+60.8K)", "(-5)", "(+0)", ""
+        // ══════════════════════════════════════════════
+        function parseGainValue(gainStr) {
+            if (!gainStr || gainStr.trim() === '') return 0;
+            const clean = gainStr.replace(/[()]/g, '').trim();
+            if (!clean) return 0;
+            const isNeg = clean.startsWith('-');
+            const numPart = clean.replace(/^[+\-]/, '');
+            let val;
+            if (numPart.toUpperCase().endsWith('K')) {
+                val = parseFloat(numPart) * 1000;
             } else {
-                // For rank, default to ascending (lower numbers first)
-                // For others, default to descending (higher numbers first)
-                currentSort = { 
-                    type: 'clans', 
-                    field: field, 
-                    direction: field === 'rank' ? 'asc' : 'desc' 
-                };
+                val = parseFloat(numPart) || 0;
             }
-
-            allClans.sort((a, b) => {
-                let valueA, valueB;
-                
-                switch(field) {
-                    case 'members':
-                        valueA = parseInt(a.Member_Count?.split('/')[0]) || 0;
-                        valueB = parseInt(b.Member_Count?.split('/')[0]) || 0;
-                        break;
-                    case 'attack':
-                        valueA = parseFloat(a.Total_Attack.replace(/[^\d.]/g, '')) || 0;
-                        valueB = parseFloat(b.Total_Attack.replace(/[^\d.]/g, '')) || 0;
-                        break;
-                    case 'lme':
-                        valueA = a.LME_Level || 0;
-                        valueB = b.LME_Level || 0;
-                        break;
-                    case 'relics':
-                        valueA = parseInt(a.Total_Relic_Cores?.replace(/\+/g, '')) || 0;
-                        valueB = parseInt(b.Total_Relic_Cores?.replace(/\+/g, '')) || 0;
-                        break;
-                    case 'grade':
-                        // Extract numeric value from Grade_Score (e.g., "1180 +30" -> 1180)
-                        valueA = parseInt((a.Grade_Score || '0').split(' ')[0]) || 0;
-                        valueB = parseInt((b.Grade_Score || '0').split(' ')[0]) || 0;
-                        break;
-                    case 'rank':
-                        valueA = parseInt(a.Global_Rank) || 999999;
-                        valueB = parseInt(b.Global_Rank) || 999999;
-                        break;
-                    default:
-                        return 0;
-                }
-                
-                return currentSort.direction === 'asc' ? valueA - valueB : valueB - valueA;
-            });
-
-            renderClansTable();
+            return isNeg ? -val : val;
         }
 
-        function sortMembers(field) {
-            // Update button appearance
-            document.querySelectorAll('.members-section .sort-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            
-            if (!currentClan) return;
-
-            // Find the correct clan name in members data
-            const matchingClanName = findMatchingClanName(currentClan, allMembers);
-            let clanMembers = allMembers.filter(member => member.Clan_Name === matchingClanName);
-            
-            clanMembers.sort((a, b) => {
-                let posA, posB;
-                
-                switch(field) {
-                    case 'attack':
-                        posA = parseInt(a.Attack_Position) || 999;
-                        posB = parseInt(b.Attack_Position) || 999;
-                        break;
-                    case 'relics':
-                        posA = parseInt(a.Relic_Position) || 999;
-                        posB = parseInt(b.Relic_Position) || 999;
-                        break;
-                    default:
-                        return 0;
-                }
-                
-                return posA - posB; // Sort by position (rank) - lower numbers first
-            });
-
-            // Update the global members array for this clan
-            allMembers = allMembers.filter(member => member.Clan_Name !== matchingClanName).concat(clanMembers);
-            
-            renderMembersTable();
+        // ══════════════════════════════════════════════
+        //  UTILITY: Format a numeric gain for display
+        //  Returns HTML string with colour class
+        // ══════════════════════════════════════════════
+        function formatGainHTML(val, isATK = false) {
+            if (val === 0) return '<span class="gain-neutral">(+0)</span>';
+            const color = val > 0 ? 'gain-positive' : 'gain-negative';
+            if (isATK) {
+                const absK = Math.abs(val / 1000);
+                const sign  = val > 0 ? '+' : '-';
+                const str   = absK >= 1 ? sign + absK.toFixed(1) + 'K' : sign + Math.abs(val).toFixed(0);
+                return `<span class="${color}">(${str})</span>`;
+            }
+            const sign = val > 0 ? '+' : '';
+            return `<span class="${color}">(${sign}${Math.round(val).toLocaleString()})</span>`;
         }
 
-        function filterMembers() {
-            const searchTerm = document.getElementById('memberSearch').value.toLowerCase();
-            
-            if (!currentClan) return;
+        // ══════════════════════════════════════════════
+        //  AUTO-CALCULATE PLAYER STATS FROM playerData
+        //  • Top 30 ATK  → Total ATK, Avg ATK, ATK Gain
+        //  • Top 30 Cores → Total, Avg, Gain
+        //  • Top 30 LME  → Total, Avg, Gain
+        //  • All members → Total CX, CX Gain
+        // ══════════════════════════════════════════════
+        function calculateAndDisplayStats() {
+            // ── Top 30 by ATK ──
+            const byATK = [...playerData].sort((a, b) => b.attack - a.attack).slice(0, 30);
+            const totalATK     = byATK.reduce((s, p) => s + p.attack, 0);
+            const totalATKGain = byATK.reduce((s, p) => s + parseGainValue(p.attackGain), 0);
+            const avgATK       = totalATK / 30;
 
-            // Find the correct clan name in members data
-            const matchingClanName = findMatchingClanName(currentClan, allMembers);
-            let clanMembers = allMembers.filter(member => member.Clan_Name === matchingClanName);
-            
-            if (searchTerm) {
-                clanMembers = clanMembers.filter(member => 
-                    member.Member_Name.toLowerCase().includes(searchTerm)
-                );
-            }
+            // ── Top 30 by Cores ──
+            const byCores = [...playerData].sort((a, b) => b.coresNum - a.coresNum).slice(0, 30);
+            const totalCores     = byCores.reduce((s, p) => s + p.coresNum, 0);
+            const totalCoresGain = byCores.reduce((s, p) => s + parseGainValue(p.coresGain), 0);
+            const avgCores       = totalCores / 30;
 
-            // Render filtered results
-            const tbody = document.querySelector('#membersTable tbody');
-            
-            if (clanMembers.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="5" class="loading">No members found</td></tr>';
-                return;
-            }
+            // ── Top 30 by LME ──
+            const byLME = [...playerData].sort((a, b) => b.lmeScore - a.lmeScore).slice(0, 30);
+            const totalLME     = byLME.reduce((s, p) => s + p.lmeScore, 0);
+            const totalLMEGain = byLME.reduce((s, p) => s + parseGainValue(p.lmeGain), 0);
+            const avgLME       = totalLME / 30;
 
-            const html = clanMembers.map(member => `
-                <tr>
-                    <td>${member.Member_Name}</td>
-                    <td class="numeric member-rank">#${member.Attack_Position}</td>
-                    <td class="numeric member-stat">${member.Attack}</td>
-                    <td class="numeric member-rank">#${member.Relic_Position}</td>
-                    <td class="numeric member-stat">${member.Relic_Cores}</td>
-                </tr>
-            `).join('');
-            
-            tbody.innerHTML = html;
+            // ── All members: CX ──
+            const totalCX     = playerData.reduce((s, p) => s + p.cxScore, 0);
+            const totalCXGain = playerData.reduce((s, p) => s + parseGainValue(p.cxGain), 0);
+
+            // ── Update top stat bar ──
+            document.getElementById('totalAttack').textContent    = formatNumber(totalATK);
+            document.getElementById('avgAttack').textContent      = formatNumber(Math.round(avgATK));
+            document.getElementById('totalCores').textContent     = totalCores + '+';
+            document.getElementById('totalAttackGainBadge').innerHTML = formatGainHTML(totalATKGain, true);
+            document.getElementById('totalCoresGainBadge').innerHTML  = formatGainHTML(totalCoresGain);
+
+            // ── Update detailed calc cards ──
+            document.getElementById('calc-total-atk').textContent       = formatNumber(totalATK);
+            document.getElementById('calc-total-atk-gain').innerHTML    = formatGainHTML(totalATKGain, true);
+            document.getElementById('calc-avg-atk').textContent         = formatNumber(Math.round(avgATK));
+
+            document.getElementById('calc-total-cores').textContent     = totalCores + '+';
+            document.getElementById('calc-total-cores-gain').innerHTML  = formatGainHTML(totalCoresGain);
+            document.getElementById('calc-avg-cores').textContent       = Math.round(avgCores) + '+';
+
+            document.getElementById('calc-total-lme').textContent       = totalLME.toLocaleString();
+            document.getElementById('calc-total-lme-gain').innerHTML    = formatGainHTML(totalLMEGain);
+            document.getElementById('calc-avg-lme').textContent         = Math.round(avgLME).toLocaleString();
+
+            document.getElementById('calc-total-cx').textContent        = totalCX.toLocaleString();
+            document.getElementById('calc-total-cx-gain').innerHTML     = formatGainHTML(totalCXGain);
         }
 
-        function debounce(func, wait) {
-            let timeout;
-            return function executedFunction(...args) {
-                const later = () => {
-                    clearTimeout(timeout);
-                    func(...args);
-                };
-                clearTimeout(timeout);
-                timeout = setTimeout(later, wait);
+        // ══════════════════════════════════════════════
+        //  LUNAR POINTS CALCULATOR
+        //  Reads lmeHistory from clanStats.js
+        //  Champion: 1st +20 / 2nd +10 / 3rd -10 / 4th -20
+        //  Legend:   1st +30 / 2nd +15 / 3rd  +5 / 4th  -5
+        //  Elite / other: no change
+        // ══════════════════════════════════════════════
+        function calculateLunarPoints() {
+            const POINTS = {
+                champion: { 1: 20, 2: 10, 3: -10, 4: -20 },
+                legend:   { 1: 30, 2: 15, 3:   5, 4:  -5 }
             };
+
+            let total = 0;
+            lmeHistory.forEach(lme => {
+                const league = lme.league.toLowerCase();
+                if (league === 'champion') {
+                    total += (POINTS.champion[lme.rank] || 0);
+                } else if (league.includes('legend')) {
+                    total += (POINTS.legend[lme.rank] || 0);
+                }
+                // Elite and others: 0 points
+            });
+            return total;
         }
+
+        // ══════════════════════════════════════════════
+        //  Get lunar points change for a single LME row
+        //  (used to render the ±pts column in history)
+        // ══════════════════════════════════════════════
+        function getLunarPointsForLME(lme) {
+            const league = lme.league.toLowerCase();
+            const CHAMPION = { 1: 20, 2: 10, 3: -10, 4: -20 };
+            const LEGEND   = { 1: 30, 2: 15, 3:   5, 4:  -5 };
+            if (league === 'champion')        return CHAMPION[lme.rank] || 0;
+            if (league.includes('legend'))    return LEGEND[lme.rank]   || 0;
+            return null; // Elite / other — show dash
+        }
+
+        // Load clan stats into the page
+        function loadClanStats() {
+            document.getElementById('lmePhase').textContent     = clanStats.lmePhase;
+            document.getElementById('lmeDifficulty').textContent = clanStats.lmeDifficulty;
+            document.getElementById('lmeLeague').textContent    = clanStats.lmeLeague;
+            document.getElementById('totalMembers').textContent = clanStats.totalMembers;
+            document.getElementById('alumniCount').textContent  = clanStats.alumniCount;
+
+            // Lunar Points — auto-calculated from lmeHistory
+            const calcLP = calculateLunarPoints();
+            document.getElementById('lunarPoints').textContent = calcLP;
+        }
+
+        // Calculate Secret Score based on LME history (existing formula kept intact)
+        function calculateSecretScore() {
+            let rankFactor = 1.0;
+            const reversedHistory = [...lmeHistory].reverse();
+            reversedHistory.forEach((lme) => {
+                if      (lme.rank === 1) rankFactor  = 1.0;
+                else if (lme.rank === 2) rankFactor *= 0.98;
+                else if (lme.rank === 3) rankFactor *= 0.96;
+                else if (lme.rank === 4) rankFactor *= 0.94;
+            });
+
+            const calcLP     = calculateLunarPoints();
+            const secretScore = calcLP * rankFactor;
+
+            document.getElementById('historyLunarPoints').textContent  = calcLP;
+            document.getElementById('historyRankFactor').textContent   = rankFactor.toFixed(4);
+            document.getElementById('historySecretScore').textContent  = secretScore.toFixed(1);
+        }
+
+        // Load LME History into modal (now includes Lunar Points column)
+        function loadLMEHistory() {
+            const tbody = document.getElementById('lmeHistoryBody');
+            tbody.innerHTML = '';
+            
+            lmeHistory.forEach((lme, index) => {
+                const row = document.createElement('tr');
+                row.style.borderBottom = '1px solid #4a5568';
+                if (index % 2 === 1) row.style.background = '#374151';
+                
+                let rankDisplay = '';
+                if (lme.rankImage) {
+                    rankDisplay = `<img src="${lme.rankImage}" alt="#${lme.rank}" style="width: 20px; vertical-align: middle;">`;
+                } else {
+                    const rankColors = { 1: '#ffd700', 2: '#c0c0c0', 3: '#cd7930', 4: '#f56565' };
+                    rankDisplay = `<span style="color: ${rankColors[lme.rank] || '#f56565'}; font-weight: 600;">#${lme.rank}</span>`;
+                }
+
+                // Lunar points column
+                const lp = getLunarPointsForLME(lme);
+                let lpDisplay;
+                if (lp === null) {
+                    lpDisplay = `<span style="color:#718096;">—</span>`;
+                } else if (lp > 0) {
+                    lpDisplay = `<span style="color:#10b981; font-weight:700;">+${lp}</span>`;
+                } else if (lp < 0) {
+                    lpDisplay = `<span style="color:#f56565; font-weight:700;">${lp}</span>`;
+                } else {
+                    lpDisplay = `<span style="color:#a0aec0;">0</span>`;
+                }
+                
+                row.innerHTML = `
+                    <td style="padding: 10px 6px; color: #e2e8f0; text-align: center; font-weight: 600; font-size: 12px;">${lme.lmeNumber}</td>
+                    <td style="padding: 10px 6px; text-align: center; font-weight: 600; font-size: 12px;">${rankDisplay}</td>
+                    <td style="padding: 10px 6px; color: #e2e8f0; text-align: center; font-size: 12px;">${lme.atkDefPoints}</td>
+                    <td style="padding: 10px 6px; color: #68d391; text-align: center; font-weight: 600; font-size: 11px;">${lme.medals.toLocaleString()}</td>
+                    <td style="padding: 10px 6px; color: #ffd700; text-align: center; font-weight: 600; font-size: 11px; white-space: nowrap;">${lme.league}</td>
+                    <td style="padding: 10px 6px; text-align: center; font-size: 12px;">${lpDisplay}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Load Alumni into modal
+        function loadAlumni() {
+            const grid = document.getElementById('alumniGrid');
+            grid.innerHTML = '';
+            alumniMembers.forEach(name => {
+                const div = document.createElement('div');
+                div.style = 'background: #2d3748; padding: 8px; border-radius: 6px; text-align: center; border: 1px solid #4a5568;';
+                div.innerHTML = `<span style="color: #e2e8f0; font-size: 13px;">${name}</span>`;
+                grid.appendChild(div);
+            });
+        }
+
+        function formatNumber(num) {
+            if (num >= 1000000) return (num / 1000000).toFixed(2) + 'M';
+            if (num >= 1000)    return (num / 1000).toFixed(1) + 'K';
+            return num.toLocaleString();
+        }
+
+        function getCXColor(score) {
+            const topScore       = cxSettings.topScore;
+            const greenThreshold = topScore * cxSettings.greenThreshold;
+            const yellowThreshold= topScore * cxSettings.yellowThreshold;
+            if (score >= greenThreshold)  return '#48bb78';
+            if (score >= yellowThreshold) return '#f59e0b';
+            return '#f56565';
+        }
+
+        function renderTable() {
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = '';
+            
+            filteredData.forEach((player, index) => {
+                const row = document.createElement('tr');
+                
+                let nameColor = '#f7fafc';
+                let nameClass = '';
+                if      (player.role === 'Leader')       { nameColor = '#fc8181'; }
+                else if (player.role === 'Vice-Leader')  { nameColor = '#ed8936'; }
+                else if (player.role === 'Glory Member') { nameColor = '#ffd700'; nameClass = 'role-glorymember'; }
+                
+                row.innerHTML = `
+                    <td class="rank-cell">${index + 1}</td>
+                    <td class="name-cell ${nameClass}" style="color: ${nameColor};">${player.name}</td>
+                    <td class="cores-cell">${player.cores}
+                        ${player.coresGain ? `<span style="color: ${player.coresGain.includes('+') && !player.coresGain.includes('(+0)') ? '#10b981' : player.coresGain.includes('(+0)') ? '#a0aec0' : '#f56565'}; font-size: 10px; margin-left: 2px; display: block;">
+                            ${player.coresGain}
+                        </span>` : ''}
+                    </td>
+                    <td style="text-align: center; font-weight: 600; color: #e2e8f0;">
+                        ${formatNumber(player.attack)}
+                        ${player.attackGain ? `<span style="color: ${player.attackGain.includes('+') && !player.attackGain.includes('(+0)') ? '#10b981' : player.attackGain.includes('(+0)') ? '#a0aec0' : '#f56565'}; font-size: 10px; margin-left: 2px; display: block;">
+                            ${player.attackGain}
+                        </span>` : ''}
+                    </td>
+                    <td style="text-align: center; font-weight: 600; color: #f59e0b;">
+                        ${player.lmeScore || 0}
+                        ${player.lmeGain ? `<span style="color: ${player.lmeGain.includes('+') && !player.lmeGain.includes('(+0)') ? '#10b981' : player.lmeGain.includes('(+0)') ? '#a0aec0' : '#f56565'}; font-size: 11px; margin-left: 4px;">
+                            ${player.lmeGain}
+                        </span>` : ''}
+                    </td>
+                    <td style="text-align: center; font-weight: 600; color: ${getCXColor(player.cxScore)};">
+                        ${player.cxScore}
+                        ${player.cxGain ? `<span style="color: ${player.cxGain.includes('(+0)') ? '#a0aec0' : '#f7fafc'}; font-size: 10px; margin-left: 2px; display: block;">
+                            ${player.cxGain}
+                        </span>` : ''}
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function sortData(criteria) {
+            currentSort = criteria;
+            switch(criteria) {
+                case 'name':   filteredData.sort((a, b) => a.name.localeCompare(b.name)); break;
+                case 'cores':  filteredData.sort((a, b) => b.coresNum - a.coresNum); break;
+                case 'attack': filteredData.sort((a, b) => b.attack - a.attack); break;
+                case 'lme':    filteredData.sort((a, b) => b.lmeScore - a.lmeScore); break;
+                case 'cx':     filteredData.sort((a, b) => b.cxScore - a.cxScore); break;
+                case 'role': {
+                    const roleOrder = { 'Leader': 1, 'Vice-Leader': 2, 'Glory Member': 3, 'Member': 4 };
+                    filteredData.sort((a, b) => {
+                        const rA = roleOrder[a.role] || 5;
+                        const rB = roleOrder[b.role] || 5;
+                        return rA !== rB ? rA - rB : b.lmeScore - a.lmeScore;
+                    });
+                    break;
+                }
+            }
+            renderTable();
+        }
+
+        function filterData(searchTerm) {
+            filteredData = playerData.filter(p => p.name.toLowerCase().includes(searchTerm.toLowerCase()));
+            sortData(currentSort);
+        }
+
+        function exportToCSV() {
+            const headers = ['Rank', 'Player Name', 'Relic Cores', 'Cores Gain', 'ATK', 'ATK Gain', 'LME Score', 'LME Gain', 'CX', 'CX Gain'];
+            const csvContent = [
+                headers.join(','),
+                ...filteredData.map((player, index) => [
+                    index + 1,
+                    `"${player.name}"`,
+                    player.cores,
+                    `"${player.coresGain || ''}"`,
+                    player.attack,
+                    `"${player.attackGain || ''}"`,
+                    player.lmeScore,
+                    `"${player.lmeGain || ''}"`,
+                    player.cxScore,
+                    `"${player.cxGain || ''}"`
+                ].join(','))
+            ].join('\n');
+            
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url  = window.URL.createObjectURL(blob);
+            const a    = document.createElement('a');
+            a.href = url;
+            a.download = 'Freedomstray_clan_stats.csv';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+
+        function openLMEHistory()  { document.getElementById('lmeHistoryModal').style.display = 'block'; }
+        function closeLMEHistory() { document.getElementById('lmeHistoryModal').style.display = 'none';  }
+        function openAlumni()      { document.getElementById('alumniModal').style.display = 'block'; }
+        function closeAlumni()     { document.getElementById('alumniModal').style.display = 'none';  }
+
+        window.onclick = function(event) {
+            const lmeModal    = document.getElementById('lmeHistoryModal');
+            const alumniModal = document.getElementById('alumniModal');
+            if (event.target === lmeModal)    lmeModal.style.display    = 'none';
+            if (event.target === alumniModal) alumniModal.style.display = 'none';
+        };
+
+        document.getElementById('sortSelect').addEventListener('change', e => sortData(e.target.value));
+        document.getElementById('searchInput').addEventListener('input',  e => filterData(e.target.value));
+
+        // ══════════════════════════════════════════════
+        //  INIT
+        // ══════════════════════════════════════════════
+        loadClanStats();
+        calculateAndDisplayStats();
+        calculateSecretScore();
+        loadLMEHistory();
+        loadAlumni();
+        sortData('lme');
     </script>
 </body>
 </html>
