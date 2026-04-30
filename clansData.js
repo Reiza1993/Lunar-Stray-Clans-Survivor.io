@@ -192,21 +192,86 @@ const clansMetadata = {
   "dataCompleteness": 462,
   "version": "1.1",
   "hasChanges": true,
-  "changeCount": 4
+  "changeCount": 12
 };
 
 const clansChanges = {
+  "15081": {
+    "rank": 26,
+    "attack": 1.009999999999998,
+    "relics": 20,
+    "lunar": 20
+  },
+  "24273": {
+    "members": 1,
+    "rank": 141,
+    "attack": 0.6199999999999974,
+    "relics": 35,
+    "lunar": 40
+  },
+  "23429": {
+    "rank": 9,
+    "attack": 0.7000000000000028,
+    "relics": 45,
+    "lunar": 10
+  },
+  "44262": {
+    "members": -1,
+    "rank": 59,
+    "attack": 0.6699999999999946,
+    "relics": 40,
+    "lunar": 20
+  },
+  "42679": {
+    "rank": 104,
+    "attack": 0.490000000000002,
+    "relics": 30,
+    "lunar": 20
+  },
+  "73710": {
+    "members": -2,
+    "rank": 99,
+    "attack": 0.7100000000000009,
+    "relics": 15,
+    "lunar": 20
+  },
+  "19135": {
+    "members": 1,
+    "rank": -196,
+    "attack": 0.6299999999999955,
+    "relics": 50,
+    "lunar": -10
+  },
+  "16530": {
+    "rank": -162,
+    "attack": 0.4200000000000017,
+    "relics": 15,
+    "lunar": -10
+  },
   "26103": {
-    "new_clan": true
+    "members": -1,
+    "rank": 29,
+    "attack": 0.5500000000000043,
+    "relics": 40,
+    "lunar": 10
   },
   "306726": {
-    "new_clan": true
+    "rank": 12,
+    "attack": 0.46000000000000085,
+    "relics": 40,
+    "lunar": 10
   },
   "15883": {
-    "new_clan": true
+    "rank": -184,
+    "attack": 0.33000000000000185,
+    "relics": 10,
+    "lunar": -10
   },
   "36454": {
-    "new_clan": true
+    "rank": -185,
+    "attack": 0.3200000000000003,
+    "relics": -20,
+    "lunar": -10
   }
 };
 
