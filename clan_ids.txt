@@ -1,0 +1,24 @@
+#aPAWcalypseMEOW
+15081, 15, 48000+
+#STRAYtOuttaComption
+23429, 13, 29000+
+#StrayLegend
+24273, 14, 38000+
+#DOGEˢᵗʳᵃʸ
+42679, 12, 24000+
+#Freedomˢᵗʳᵃʸ
+44262, 13, 25000+
+#家TropicThunder族
+73710, 12, 19000+
+#Stray.io
+16530, 11, 16200+
+#Stray-v445
+19135, 12, 18000+
+#StrayStorm
+26103, 12, 24345+
+#Stray Bunnies
+306726, 11, 19900+
+#ChaoticAF.
+36454, 11, 15000+
+#⚚StrayChaos⚚
+15883, 11, 18000+
